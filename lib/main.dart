@@ -1,3 +1,4 @@
+import 'dart:async';
 import "package:flutter/material.dart";
 
 void main() => runApp(App());
@@ -15,32 +16,42 @@ class _App extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Column(children: [
+        body: Column(children: <Widget>[
           Container(
-            padding: EdgeInsets.all(15.0),
-            decoration: new BoxDecoration(color: Colors.amber),
+            width: double.infinity,
+            height: 180.0,
+            decoration: const BoxDecoration(color: Colors.amber),
             child: Image.asset("assets/main-logo.png"),
           ),
-          Container(
-            margin: EdgeInsets.all(10.0),
-            child: ElevatedButton(
-              child: Text("Add product"),
-              onPressed: () {},
-            ),
-          ),
-          Card(
-            child: Column(
-              children: <Widget>[
-                Container(
-                    padding: EdgeInsets.all(25.0),
-                    child: Image.asset("assets/testimg.jpg")),
-                Text("Boletos")
-              ],
-            ),
+          Column(
+            children: <Widget>[
+              Text("INICIA SESION"),
+              TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Usuario"),
+              ),
+              TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Contraseña"),
+              ),
+              ElevatedButton(
+                  onPressed: null,
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.amber,
+                  ),
+                  child: Text("Iniciar Sesión")),
+              GestureDetector(
+                child: Text("Registrate", 
+                style: TextStyle(decoration: TextDecoration.underline)),
+                onTap: (){},
+              )
+            ],
           ),
         ]),
       ),
     );
   }
 }
-
