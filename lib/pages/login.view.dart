@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sorteos_app/pages/home.view.dart';
 
@@ -12,6 +15,11 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+
+  final username = TextEditingController();
+  final password = TextEditingController();
+  final log = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -40,12 +48,15 @@ class _Login extends State<Login> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 20.w, vertical: 5),
                       child: TextField(
+                        controller: username,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(), labelText: "Usuario"),
+                            border: OutlineInputBorder(),
+                            labelText: "Usuario"),
                       )),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     child: TextField(
+                      controller: password,
                       obscureText: true,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -59,10 +70,16 @@ class _Login extends State<Login> {
                         height: 40.h,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Home()),
-                            );
+                          //   Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(builder: (context) => Home()),
+                          //   );
+                            var res = sendLogin(username.text, password.text);
+                            if(res.response == "true"){
+                              log.text = "correct account";
+                            } else {
+                              log.text = "incorrect account";
+                            }
                           },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
@@ -89,7 +106,11 @@ class _Login extends State<Login> {
                           fontSize: 20, decoration: TextDecoration.underline),
                     ),
                     onTap: () {},
-                  )
+                  ),
+                  Container(
+                    child: Text(
+                      log.text
+                    ),)
                 ],
               ),
             ]),
@@ -98,4 +119,12 @@ class _Login extends State<Login> {
       ),
     );
   }
+}
+
+sendLogin(String username, String password) async {
+  var url = Uri.parse("http://localhost:3000/login");
+  var data = {"username": username, "password": password};
+  var res = await http.post(url, body: jsonEncode(data));
+
+  return res;
 }
