@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart';
 import 'package:sorteos_app/pages/home.view.dart';
 
 class Login extends StatefulWidget {
@@ -69,16 +69,19 @@ class _Login extends State<Login> {
                         width: 200.w,
                         height: 40.h,
                         child: ElevatedButton(
-                          onPressed: () {
-                          //   Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(builder: (context) => Home()),
-                          //   );
-                            var res = sendLogin(username.text, password.text);
-                            if(res.response == "true"){
-                              log.text = "correct account";
+                          onPressed: () async {
+                          
+                            var res = await sendLogin(username.text, password.text);
+                            print("Print res ->");
+                            print(res.body);
+                            if(res.body == "true"){
+                              print("cuenta valida");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Home()),
+                                );
                             } else {
-                              log.text = "incorrect account";
+                              print("incorrect account");
                             }
                           },
                           style: ButtonStyle(
@@ -107,10 +110,6 @@ class _Login extends State<Login> {
                     ),
                     onTap: () {},
                   ),
-                  Container(
-                    child: Text(
-                      log.text
-                    ),)
                 ],
               ),
             ]),
@@ -122,9 +121,11 @@ class _Login extends State<Login> {
 }
 
 sendLogin(String username, String password) async {
-  var url = Uri.parse("http://localhost:3000/login");
-  var data = {"username": username, "password": password};
-  var res = await http.post(url, body: jsonEncode(data));
+  final url = Uri.parse("http://192.168.1.68:3000/login");
+  final data = {"username": username, "password": password};
+  final res = await post(url, body: data);
 
+  print("log to the console from post request");
+  print(res.body);
   return res;
 }
