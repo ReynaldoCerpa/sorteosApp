@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import 'views/login.view.dart';
-void main() => runApp(MaterialApp(
-  home: Login(),
+import 'views/home.view.dart';
+void main() => runApp( MaterialApp(
+    home: Home()
   )
 );
 

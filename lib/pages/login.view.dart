@@ -70,16 +70,16 @@ class _Login extends State<Login> {
                         height: 40.h,
                         child: ElevatedButton(
                           onPressed: () {
-                          //   Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(builder: (context) => Home()),
-                          //   );
-                            var res = sendLogin(username.text, password.text);
-                            if(res.response == "true"){
-                              log.text = "correct account";
-                            } else {
-                              log.text = "incorrect account";
-                            }
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Home()),
+                            );
+                            // var res = sendLogin(username.text, password.text);
+                            // if(res.response == "true"){
+                            //   log.text = "correct account";
+                            // } else {
+                            //   log.text = "incorrect account";
+                            // }
                           },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
