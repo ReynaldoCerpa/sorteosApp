@@ -81,6 +81,17 @@ class _Login extends State<Login> {
                                   MaterialPageRoute(builder: (context) => Home()),
                                 );
                             } else {
+                              showDialog(
+                                context: context, 
+                                builder: (BuildContext context){
+                                return AlertDialog(
+                                  title: Container(
+                                    child: Text("Datos incorrectos",
+                                    textAlign: TextAlign.center,),
+                                    ),
+                                  actions: [],
+                                  );
+                                });
                               print("incorrect account");
                             }
                           },
