@@ -44,7 +44,7 @@ class _Home extends State<Home>{
               vertical: 30.h),
             child: Column(
               children: [
-                  homeButtons(context, "assets/ticket.png", "Vender boletos"),
+                  homeButtons(context, "assets/ticket.png", "Vender boletos") ,
                   SizedBox(height: 25.h),
                   homeButtons(context, "assets/coin.png", "Agregar abono"),
                   SizedBox(height: 25.h),
