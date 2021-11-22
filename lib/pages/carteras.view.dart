@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:sorteos_app/pages/boletos.view.dart';
 
 class Carteras extends StatefulWidget {
-  const Carteras({Key? key}) : super(key: key);
+  final String id;
+  const Carteras({Key? key, required this.id}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
