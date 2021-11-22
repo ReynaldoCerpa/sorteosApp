@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sorteos_app/pages/carteras.view.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -65,7 +66,11 @@ Widget homeButtons(BuildContext context, String img, String text){
     height: 100.h,
     width: double.infinity,
     child: ElevatedButton(
-      onPressed: () {  },
+      onPressed: () {  Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Carteras(id: "2")),
+      ); },
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(

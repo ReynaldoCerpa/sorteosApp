@@ -20,7 +20,7 @@ class _Boletos extends State<Boletos> {
     List posts = [];
     try {
       // This is an open REST API endpoint for testing purposes
-      const API = 'http://192.168.0.8:3000/boletos';
+      const API = 'http://192.168.1.133:3000/boletos';
 
       final http.Response response = await http.get(Uri.parse(API));
       posts = json.decode(response.body);
