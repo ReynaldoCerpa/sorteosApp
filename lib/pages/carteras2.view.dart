@@ -8,18 +8,18 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:sorteosApp/pages/boletos.view.dart';
 
-class Carteras extends StatefulWidget {
+class Carteras2 extends StatefulWidget {
   final String id;
-  const Carteras({Key? key, required this.id}) : super(key: key);
+  const Carteras2({Key? key, required this.id}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _Carteras();
+    return _Carteras2();
   }
 }
 
-class _Carteras extends State<Carteras> {
+class _Carteras2 extends State<Carteras2> {
   Future<List> _loadData() async {
     List posts = [];
     try {
@@ -138,4 +138,3 @@ class _Carteras extends State<Carteras> {
   }
 }
 //Text(snapshot.data![index]['title']),
-
