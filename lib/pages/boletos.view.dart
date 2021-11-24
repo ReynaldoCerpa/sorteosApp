@@ -6,10 +6,10 @@ import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:sorteosApp/pages/boleto_espec%C3%ADfico.view.dart';
 import 'package:sorteosApp/pages/home.view.dart';
 
 class Boletos extends StatefulWidget {
-
   final String idCartera;
   final String idColaborador;
   const Boletos(
@@ -24,37 +24,24 @@ class Boletos extends StatefulWidget {
 }
 
 class _Boletos extends State<Boletos> {
-
-  /*Future<List> _loadData(String nombre) async {
+  Future<List> _loadData(String filtro) async {
     List posts = [];
     try {
-      final idColaboador = widget.id;
+      final idColaboador = widget.idColaborador;
+      final idCartera = widget.idCartera;
       final body = {
         'idColaborador': idColaboador,
+        'idCartera': idCartera,
+        'filtro': filtro,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('192.168.1.133:3000', '/carteras');
+      final uri = Uri.http('192.168.1.133:3000', '/boletos');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
-
     } catch (err) {
       print(err);
     }
-    return posts;
-  }*/
-  Future<List> _loadData() async {
-    List posts = [];
-    try {
-      // This is an open REST API endpoint for testing purposes
-      const API = 'http://192.168.1.133:3000/boletos';
-
-      final http.Response response = await http.get(Uri.parse(API));
-      posts = json.decode(response.body);
-    } catch (err) {
-      print(err);
-    }
-
     return posts;
   }
 
@@ -70,7 +57,7 @@ class _Boletos extends State<Boletos> {
           appBar: AppBar(
             toolbarHeight: 60.h,
             backgroundColor: Colors.amber,
-            title:  IconButton(
+            title: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -103,89 +90,81 @@ class _Boletos extends State<Boletos> {
             height: double.infinity,
             child: Column(
               children: [
-                 Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 15, top: 10, right: 15, bottom: 10),
-                        height: 33.h,
-                        width: 100.w,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(20.sp))),
-                            foregroundColor:
-                                MaterialStateProperty.all(Colors.black),
-                            backgroundColor:
-                                MaterialStateProperty.all(yellow),
-                          ),
-                          child: Text(
-                            "Todos",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800, fontSize: 17.sp),
-                          ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 15, top: 10, right: 15, bottom: 10),
+                      height: 33.h,
+                      width: 100.w,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.sp))),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.black),
+                          backgroundColor: MaterialStateProperty.all(yellow),
+                        ),
+                        child: Text(
+                          "Todos",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800, fontSize: 17.sp),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 0, top: 10, right: 15, bottom: 10),
-                        height: 33.h,
-                        width: 100.w,
-                        child: ElevatedButton(
-                          onPressed: () {
-
-                          },
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(20.sp))),
-                            foregroundColor:
-                                MaterialStateProperty.all(Colors.black),
-                            backgroundColor:
-                                MaterialStateProperty.all(yellow),
-                          ),
-                          child: Text(
-                            "Vendidos",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800, fontSize: 17.sp),
-                          ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 0, top: 10, right: 15, bottom: 10),
+                      height: 33.h,
+                      width: 100.w,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.sp))),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.black),
+                          backgroundColor: MaterialStateProperty.all(yellow),
+                        ),
+                        child: Text(
+                          "Vendidos",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800, fontSize: 17.sp),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 0, top: 10, right: 15, bottom: 10),
-                        height: 33.h,
-                        width: 100.w,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(20.sp))),
-                            foregroundColor:
-                                MaterialStateProperty.all(Colors.black),
-                            backgroundColor:
-                                MaterialStateProperty.all(yellow),
-                          ),
-                          child: Text(
-                            "No Vendidos",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800, fontSize: 15.sp),
-                          ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 0, top: 10, right: 15, bottom: 10),
+                      height: 33.h,
+                      width: 100.w,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.sp))),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.black),
+                          backgroundColor: MaterialStateProperty.all(yellow),
+                        ),
+                        child: Text(
+                          "No Vendidos",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800, fontSize: 15.sp),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
                 Expanded(
                     child: FutureBuilder(
-                        future: _loadData(),
+                        future: _loadData("0"),
                         builder: (BuildContext ctx,
                                 AsyncSnapshot<List> snapshot) =>
                             snapshot.hasData
@@ -206,7 +185,13 @@ class _Boletos extends State<Boletos> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => Home()),
+                                                  builder: (context) => Boleto_especifico(
+                                                      numBoleto: snapshot
+                                                          .data![
+                                                      index]
+                                                      [
+                                                      'numBoleto']
+                                                          .toString())),
                                             );
                                           },
                                           child: Row(
@@ -270,9 +255,13 @@ class _Boletos extends State<Boletos> {
                                                         Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      Home()),
+                                                              builder: (context) => Boleto_especifico(
+                                                                  numBoleto: snapshot
+                                                                      .data![
+                                                                          index]
+                                                                          [
+                                                                          'numBoleto']
+                                                                      .toString())),
                                                         );
                                                       },
                                                       icon: Icon(Icons
@@ -295,9 +284,6 @@ class _Boletos extends State<Boletos> {
       ),
     );
   }
-
-
-
 
   void onPress(int id) {
     print('pressed $id');

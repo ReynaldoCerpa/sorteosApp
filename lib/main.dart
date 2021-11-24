@@ -4,7 +4,7 @@ import 'package:sorteosApp/pages/carteras2.view.dart';
 import 'package:sorteosApp/pages/login.view.dart';
 import 'pages/home.view.dart';
 void main() => runApp(MaterialApp(
-  home:   Carteras2(id: "1"),
+  home:   Carteras(id: "1"),
   )
 );
 

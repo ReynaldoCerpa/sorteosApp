@@ -93,7 +93,7 @@ class _Carteras extends State<Carteras> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Boletos(idColaborador: widget.id, idCartera: "1")),
+                                builder: (context) => Boletos(idColaborador: widget.id, idCartera: snapshot.data![index]['idCartera'].toString())),
                           );
                         },
                         child: Row(
@@ -117,7 +117,7 @@ class _Carteras extends State<Carteras> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          Boletos(idColaborador: widget.id, idCartera: "1")),
+                                          Boletos(idColaborador: widget.id, idCartera: snapshot.data![index]['idCartera'].toString())),
                                 );
                               },
                               icon: Icon(Icons.arrow_forward_ios),
