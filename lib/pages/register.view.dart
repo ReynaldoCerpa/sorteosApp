@@ -5,16 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:sorteos_app/pages/home.view.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _Login();
+    return _Register();
   }
 }
 
-class _Login extends State<Login> {
+class _Register extends State<Register> {
 
   final username = TextEditingController();
   final password = TextEditingController();
@@ -39,7 +39,7 @@ class _Login extends State<Login> {
                   Padding(
                     padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
                     child: Text(
-                      "INICIA SESION",
+                      "REGISTRATE",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 25.sp),
                     ),
@@ -53,16 +53,7 @@ class _Login extends State<Login> {
                             border: OutlineInputBorder(),
                             labelText: "Usuario"),
                       )),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    child: TextField(
-                      controller: password,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "Contraseña"),
-                    ),
-                  ),
+                      textInput("Nombre completo"),
                   Padding(
                       padding: EdgeInsets.only(top: 20, bottom: 10.0),
                       child: SizedBox(
@@ -139,4 +130,18 @@ sendLogin(String username, String password) async {
   print("log to the console from post request");
   print(res.body);
   return res;
+}
+
+textInput(String placeholder, TextEditingController control){
+  return 
+  Padding(
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    child: TextField(
+      controller: control,
+      obscureText: true,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: placeholder),
+    ),
+  );
 }

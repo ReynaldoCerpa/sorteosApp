@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import 'pages/login.view.dart';
+import 'pages/register.view.dart';
 void main() => runApp(MaterialApp(
-  home: Login(),
+  home: Register(),
   )
 );
 
