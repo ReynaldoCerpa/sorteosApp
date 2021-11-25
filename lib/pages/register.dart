@@ -5,16 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:sorteosApp/pages/home.view.dart';
 
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _Register();
+    return _Login();
   }
 }
 
-class _Register extends State<Register> {
+class _Login extends State<Login> {
 
   final username = TextEditingController();
   final password = TextEditingController();
@@ -39,7 +39,7 @@ class _Register extends State<Register> {
                   Padding(
                     padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
                     child: Text(
-                      "REGISTRATE",
+                      "INICIA SESION",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 25.sp),
                     ),
@@ -53,7 +53,16 @@ class _Register extends State<Register> {
                             border: OutlineInputBorder(),
                             labelText: "Usuario"),
                       )),
-                      textInput("Nombre completo"),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    child: TextField(
+                      controller: password,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Contraseña"),
+                    ),
+                  ),
                   Padding(
                       padding: EdgeInsets.only(top: 20, bottom: 10.0),
                       child: SizedBox(
@@ -123,25 +132,11 @@ class _Register extends State<Register> {
 }
 
 sendLogin(String username, String password) async {
-  final url = Uri.parse("http://192.168.1.87:3000/login");
+  final url = Uri.parse("http://192.168.1.68:3000/login");
   final data = {"username": username, "password": password};
   final res = await post(url, body: data);
 
   print("log to the console from post request");
   print(res.body);
   return res;
-}
-
-textInput(String placeholder, TextEditingController control){
-  return 
-  Padding(
-    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-    child: TextField(
-      controller: control,
-      obscureText: true,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: placeholder),
-    ),
-  );
 }
