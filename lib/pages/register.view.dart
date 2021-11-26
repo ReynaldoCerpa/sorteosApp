@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:http/http.dart';
-import 'package:sorteos_app/pages/home.view.dart';
+import 'package:http/http.dart' as http;
+import 'package:sorteosApp/pages/home.view.dart';
+import 'package:sorteosApp/pages/login.view.dart';
+import 'package:sorteosApp/widget/TextInput.widget.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -16,9 +18,13 @@ class Register extends StatefulWidget {
 
 class _Register extends State<Register> {
 
-  final username = TextEditingController();
-  final password = TextEditingController();
-  final log = TextEditingController();
+  final nombreCompleto = TextEditingController();
+  final direccion = TextEditingController();
+  final telefono = TextEditingController();
+  final email = TextEditingController();
+  final usuario = TextEditingController();
+  final contrasena = TextEditingController();
+  final confirmContrasena = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,7 @@ class _Register extends State<Register> {
             child: Column(children: <Widget>[
               Container(
                 width: double.infinity,
-                height: 150.0,
+                height: 80.0,
                 decoration: const BoxDecoration(color: Colors.amber),
                 child: Image.asset("assets/main-logo.png"),
               ),
@@ -39,21 +45,18 @@ class _Register extends State<Register> {
                   Padding(
                     padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
                     child: Text(
-                      "REGISTRATE",
+                      "INGRESA TUS DATOS",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 25.sp),
                     ),
-                  ),
-                  Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20.w, vertical: 5),
-                      child: TextField(
-                        controller: username,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "Usuario"),
-                      )),
-                      textInput("Nombre completo"),
+                  ),                  
+                  TextInput("Nombre completo", nombreCompleto, false),
+                  TextInput("Direccion", direccion, false),
+                  TextInput("Teléfono", telefono, false),
+                  TextInput("E-mail", email, false),
+                  TextInput("Usuario", usuario, false),
+                  TextInput("Contraseña", contrasena, true),
+
                   Padding(
                       padding: EdgeInsets.only(top: 20, bottom: 10.0),
                       child: SizedBox(
@@ -62,14 +65,13 @@ class _Register extends State<Register> {
                         child: ElevatedButton(
                           onPressed: () async {
                           
-                            var res = await sendLogin(username.text, password.text);
-                            print("Print res ->");
-                            print(res.body);
-                            if(res.body == "true"){
+                            bool res = await registerUser(nombreCompleto.text, direccion.text, telefono.text, email.text, usuario.text, contrasena.text);
+                            
+                            if(res == true){
                               print("cuenta valida");
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => Home()),
+                                  MaterialPageRoute(builder: (context) => Login()),
                                 );
                             } else {
                               showDialog(
@@ -77,13 +79,12 @@ class _Register extends State<Register> {
                                 builder: (BuildContext context){
                                 return AlertDialog(
                                   title: Container(
-                                    child: Text("Datos incorrectos",
+                                    child: Text("No se pudo completar el registro",
                                     textAlign: TextAlign.center,),
                                     ),
                                   actions: [],
                                   );
                                 });
-                              print("incorrect account");
                             }
                           },
                           style: ButtonStyle(
@@ -96,22 +97,14 @@ class _Register extends State<Register> {
                             backgroundColor: MaterialStateProperty.all(Colors.amber),
                           ),
                           child: Text(
-                            "Iniciar Sesión",
+                            "Registrarse",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20.sp),
                           ),
                         ),
                       ),
-                    ),  
-                  GestureDetector(
-                    child: Text(
-                      "Registrate",
-                      style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.underline),
                     ),
-                    onTap: () {},
-                  ),
                 ],
               ),
             ]),
@@ -122,26 +115,22 @@ class _Register extends State<Register> {
   }
 }
 
-sendLogin(String username, String password) async {
-  final url = Uri.parse("http://192.168.1.87:3000/login");
-  final data = {"username": username, "password": password};
-  final res = await post(url, body: data);
+registerUser(String nombreCompleto, String direccion, String telefono, String email, String usuario, String contrasena) async {
+  final url = Uri.parse("http://192.168.1.77:3000/register");
+  bool response = false;
+  final data = {
+    "nombreCompleto": nombreCompleto,
+    "direccion": direccion,
+    "telefono": telefono,
+    "email": email,
+    "usuario": usuario,
+    "contrasena": contrasena
+  };
+  final res = await http.post(url, body: data);
+  
+  if(res.body == "true"){
+    response = true;
+  }
 
-  print("log to the console from post request");
-  print(res.body);
-  return res;
-}
-
-textInput(String placeholder, TextEditingController control){
-  return 
-  Padding(
-    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-    child: TextField(
-      controller: control,
-      obscureText: true,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: placeholder),
-    ),
-  );
+  return response;
 }

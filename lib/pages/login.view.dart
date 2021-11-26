@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:sorteosApp/pages/home.view.dart';
+import 'package:sorteosApp/pages/register.view.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
-
   @override
   State<StatefulWidget> createState() {
     return _Login();
   }
 }
+
 
 class _Login extends State<Login> {
 
@@ -119,7 +120,12 @@ class _Login extends State<Login> {
                       style: TextStyle(
                           fontSize: 20, decoration: TextDecoration.underline),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Register()),
+                                );
+                    },
                   ),
                 ],
               ),
@@ -132,7 +138,7 @@ class _Login extends State<Login> {
 }
 
 sendLogin(String username, String password) async {
-  final url = Uri.parse("http://192.168.1.87:3000/login");
+  final url = Uri.parse("http://192.168.1.77:3000/login");
   final data = {"username": username, "password": password};
   final res = await post(url, body: data);
 
