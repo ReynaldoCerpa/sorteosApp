@@ -1,12 +1,11 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:sorteosApp/pages/home.view.dart';
 
 class Boleto_especifico extends StatefulWidget {
 
@@ -30,9 +29,10 @@ class _Boleto_especifico extends State<Boleto_especifico> {
       final numBoleto = widget.numBoleto;
       final body = {
         'numBoleto': numBoleto,
+        'filtro': '0',
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('10.20.137.13:3000', '/boletoespecifico');
+      final uri = Uri.http('192.168.1.133:3000', '/boletoespecifico');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
@@ -88,56 +88,57 @@ class _Boleto_especifico extends State<Boleto_especifico> {
             ],
           ),
           body:
-               FutureBuilder(
-                        future: _loadData("0"),
-                        builder: (BuildContext ctx,
-                            AsyncSnapshot<List> snapshot) =>
-                        snapshot.hasData
-                            ? ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder:
-                              (BuildContext context, index) => SizedBox(
-                                child: Column(
-                                  children : [
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 25.h,
-                                        ),
-                                        Text(
-                                          "Fecha de venta "+snapshot.data![
-                                          index][
-                                          'fecha']
-                                              .toString(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 20.sp,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          "Fecha de venta "+snapshot.data![
-                                          index][
-                                          'fecha']
-                                              .toString(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 20.sp,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                  ]
-                                    ),
-                              ),
-                        )
-                            : Center(
-                          child: CircularProgressIndicator(),
-                        ))
-           ,
+          FutureBuilder(
+              future: _loadData("0"),
+              builder: (BuildContext ctx,
+                  AsyncSnapshot<List> snapshot) =>
+              snapshot.hasData
+                  ? ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: snapshot.data!.length,
+                itemBuilder:
+                    (BuildContext context, index) => SizedBox(
+                  child: Column(
+                      children : [
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Text(
+                              "Fecha de venta "+snapshot.data![
+                              index][
+                              'fecha']
+                                  .toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black),
+                            ),
+                            SizedBox(height: 30.h,),
+                            Text(
+                              "Fecha de venta "+snapshot.data![
+                              index][
+                              'fecha']
+                                  .toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ]
+                  ),
+                ),
+              )
+                  : Center(
+                child: CircularProgressIndicator(),
+              ))
+          ,
         ),
       ),
     );
