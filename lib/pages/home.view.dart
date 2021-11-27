@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sorteosApp/widget/HomeButton.widget.dart';
+import 'package:sorteosApp/pages/register.view.dart';
+import 'package:sorteosApp/pages/login.view.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -47,11 +49,11 @@ class _Home extends State<Home> {
             padding: EdgeInsets.symmetric(horizontal: 35.w, vertical: 30.h),
             child: Column(
               children: [
-                HomeButton("assets/ticket.png", "Vender boletos"),
+                HomeButton("assets/ticket.png", "Vender boletos", Register()),
                 SizedBox(height: 25.h),
-                HomeButton("assets/coin.png", "Agregar abono"),
+                HomeButton("assets/coin.png", "Agregar abono", Login()),
                 SizedBox(height: 25.h),
-                HomeButton("assets/wallet.png", "Carteras"),
+                HomeButton("assets/wallet.png", "Carteras", Login()),
               ],
             ),
           ),
