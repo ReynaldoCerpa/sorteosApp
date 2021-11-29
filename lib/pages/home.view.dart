@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sorteosApp/pages/carteras.view.dart';
 import 'package:sorteosApp/widget/HomeButton.widget.dart';
 import 'package:sorteosApp/pages/register.view.dart';
 import 'package:sorteosApp/pages/login.view.dart';
@@ -53,7 +54,7 @@ class _Home extends State<Home> {
                 SizedBox(height: 25.h),
                 HomeButton("assets/coin.png", "Agregar abono", Login()),
                 SizedBox(height: 25.h),
-                HomeButton("assets/wallet.png", "Carteras", Login()),
+                HomeButton("assets/wallet.png", "Carteras", Carteras(id: "1")),
               ],
             ),
           ),
