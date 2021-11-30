@@ -1,29 +1,31 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
-import 'package:sorteosApp/pages/boletos.view.dart';
+import 'package:sorteosApp/pages/comprador_existente.view.dart';
 
-class Carteras extends StatefulWidget {
-  final String id;
-  const Carteras({Key? key, required this.id}) : super(key: key);
+class VenderBoleto extends StatefulWidget {
+  final String idColaborador;
+
+  const VenderBoleto({Key? key, required this.idColaborador})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _Carteras();
+    return _VenderBoleto();
   }
 }
 
-class _Carteras extends State<Carteras> {
+class _VenderBoleto extends State<VenderBoleto> {
   Future<List> _loadData() async {
     List posts = [];
     try {
-      final idColaboador = widget.id;
+      final idColaboador = widget.idColaborador;
       final body = {
         'idColaborador': idColaboador,
       };
@@ -67,7 +69,7 @@ class _Carteras extends State<Carteras> {
                       width: 90.w,
                       child: Image.asset("assets/main-logo.png"),
                     ),
-                    SizedBox(width: 100.w,),
+                    SizedBox(width: 140.w,),
                     Text(
                       "Carteras",
                       style: TextStyle(
@@ -91,11 +93,7 @@ class _Carteras extends State<Carteras> {
                     color: lightGrey,
                     child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Boletos(idColaborador: widget.id, idCartera: snapshot.data![index]['idCartera'].toString())),
-                          );
+
                         },
                         child: Row(
                           children: [
@@ -114,12 +112,6 @@ class _Carteras extends State<Carteras> {
                             IconButton(
                               onPressed: (){
                                 print(snapshot.data![index]['idCartera']);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Boletos(idColaborador: widget.id, idCartera: snapshot.data![index]['idCartera'].toString())),
-                                );
                               },
                               icon: Icon(Icons.arrow_forward_ios),
                             )
@@ -139,4 +131,3 @@ class _Carteras extends State<Carteras> {
   }
 }
 //Text(snapshot.data![index]['title']),
-

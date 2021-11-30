@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:sorteosApp/pages/comprador_existente.view.dart';
 
 class Boleto_especifico extends StatefulWidget {
   final String numBoleto;
@@ -73,7 +74,7 @@ class _Boleto_especifico extends State<Boleto_especifico> {
                     width: 90.w,
                   ),
                   Text(
-                    "Boletos #" + widget.numBoleto,
+                    "Boleto #" + widget.numBoleto,
                     style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w700,
@@ -103,18 +104,7 @@ class _Boleto_especifico extends State<Boleto_especifico> {
                                         SizedBox(
                                           height: 25.h,
                                         ),
-                                        (snapshot.data![index]['fecha']
-                                                    .toString() ==
-                                                "null")
-                                            ? Text(
-                                                "No vendido",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 20.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.black),
-                                              )
-                                            : Text(
+                                        Text(
                                                 "Fecha de venta " +
                                                     snapshot.data![index]
                                                             ['fecha']
@@ -191,13 +181,31 @@ class _Boleto_especifico extends State<Boleto_especifico> {
                                                     snapshot.data![index]
                                                             ['telefono']
                                                         .toString()),
-                                                SizedBox(
-                                                  height: 10.h,
-                                                ),
                                               ],
                                             ),
                                           ),
-                                        )
+                                        ),
+                                        SizedBox(height: 50.h,),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                          },
+                                          style: ButtonStyle(
+                                            fixedSize: MaterialStateProperty.all(Size(150.w, 50.h)),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(2.sp))),
+
+                                            foregroundColor:
+                                            MaterialStateProperty.all(Colors.black),
+                                            backgroundColor: MaterialStateProperty.all(Colors.amber),
+                                          ),
+                                          child: Text(
+                                            "Abonar",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w800, fontSize: 20.sp),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ])
@@ -208,13 +216,40 @@ class _Boleto_especifico extends State<Boleto_especifico> {
                                           height: 25.h,
                                         ),
                                         Text(
-                                          "No vendido",
+                                          "Boleto no vendido",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 20.sp,
                                               fontWeight: FontWeight.w700,
                                               color: Colors.black),
-                                        )
+                                        ),
+                                        SizedBox(height: 50.h,),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CompradorExistente(
+                                                          numBoleto: widget.numBoleto),),
+                                            );
+                                          },
+                                          style: ButtonStyle(
+                                            fixedSize: MaterialStateProperty.all(Size(150.w, 50.h)),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(2.sp))),
+                                            foregroundColor:
+                                            MaterialStateProperty.all(Colors.black),
+                                            backgroundColor: MaterialStateProperty.all(Colors.amber),
+                                          ),
+                                          child: Text(
+                                            "Vender",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w800, fontSize: 20.sp),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),

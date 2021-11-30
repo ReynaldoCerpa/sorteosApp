@@ -79,7 +79,7 @@ class _Login extends State<Login> {
                               print("cuenta valida");
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => Home()),
+                                  MaterialPageRoute(builder: (context) => Home(idColaborador: "1",)),
                                 );
                             } else {
                               showDialog(
