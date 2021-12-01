@@ -194,7 +194,7 @@ class _Boletos extends State<Boletos> {
                                                               numBoleto: snapshot
                                                                   .data![index][
                                                                       'numBoleto']
-                                                                  .toString())),
+                                                                  .toString(), idColaborador: widget.idColaborador.toString(), )),
                                                 );
                                               },
                                               child: Row(
@@ -270,7 +270,7 @@ class _Boletos extends State<Boletos> {
                                                                               index]
                                                                               [
                                                                               'numBoleto']
-                                                                          .toString())),
+                                                                          .toString(), idColaborador: widget.idColaborador.toString(),)),
                                                             );
                                                           },
                                                           icon: Icon(Icons

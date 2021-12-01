@@ -8,12 +8,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sorteosApp/pages/boleto_espec%C3%ADfico.view.dart';
+import 'package:sorteosApp/pages/compradores.view.dart';
 import 'package:sorteosApp/pages/home.view.dart';
+import 'package:sorteosApp/pages/registrarComprador.view.dart';
 
 class CompradorExistente extends StatefulWidget {
   final String numBoleto;
+  final String idColaborador;
 
-  const CompradorExistente({Key? key, required this.numBoleto})
+  const CompradorExistente({Key? key, required this.numBoleto, required this.idColaborador})
       : super(key: key);
 
   @override
@@ -84,6 +87,12 @@ class _CompradorExistente extends State<CompradorExistente> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterComprador(numBoleto: widget.numBoleto.toString())),
+                          );
+
                         },
                         style: ButtonStyle(
                           fixedSize: MaterialStateProperty.all(Size(150.w, 50.h)),
@@ -104,6 +113,11 @@ class _CompradorExistente extends State<CompradorExistente> {
                       SizedBox(width: 20.w,),
                       ElevatedButton(
                         onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Compradores(numBoleto: widget.numBoleto.toString(), idColaborador: widget.idColaborador.toString())),
+                          );
                         },
                         style: ButtonStyle(
                           fixedSize: MaterialStateProperty.all(Size(150.w, 50.h)),

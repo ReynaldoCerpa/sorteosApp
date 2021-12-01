@@ -116,7 +116,7 @@ class _Register extends State<Register> {
 }
 
 registerUser(String nombreCompleto, String direccion, String telefono, String email, String usuario, String contrasena) async {
-  final url = Uri.parse("http://192.168.1.77:3000/register");
+  final url = Uri.parse("http://192.168.1.133:3000/register");
   bool response = false;
   final data = {
     "nombreCompleto": nombreCompleto,

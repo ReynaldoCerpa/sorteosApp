@@ -10,7 +10,9 @@ import 'package:sorteosApp/pages/comprador_existente.view.dart';
 
 class Boleto_especifico extends StatefulWidget {
   final String numBoleto;
-  const Boleto_especifico({Key? key, required this.numBoleto})
+  final String idColaborador;
+
+  const Boleto_especifico({Key? key, required this.numBoleto, required this.idColaborador})
       : super(key: key);
 
   @override
@@ -231,7 +233,7 @@ class _Boleto_especifico extends State<Boleto_especifico> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       CompradorExistente(
-                                                          numBoleto: widget.numBoleto),),
+                                                          numBoleto: widget.numBoleto, idColaborador: widget.idColaborador, ),),
                                             );
                                           },
                                           style: ButtonStyle(
@@ -261,10 +263,6 @@ class _Boleto_especifico extends State<Boleto_especifico> {
         ),
       ),
     );
-  }
-
-  void onPress(int id) {
-    print('pressed $id');
   }
 }
 
