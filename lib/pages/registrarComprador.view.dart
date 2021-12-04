@@ -9,8 +9,9 @@ import 'package:sorteosApp/widget/TextInput.widget.dart';
 
 class RegisterComprador extends StatefulWidget {
   final String numBoleto;
+  final String idColaborador;
 
-  const RegisterComprador({Key? key, required this.numBoleto})
+  const RegisterComprador({Key? key, required this.numBoleto, required this.idColaborador})
       : super(key: key);
 
   @override
@@ -140,10 +141,13 @@ class _RegisterComprador extends State<RegisterComprador> {
 
                             if(res == true){
                               print("cuenta valida");
+
+                              showAlertDialog(context);
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => Home(idColaborador: "1")),
+                                MaterialPageRoute(builder: (context) => Home(idColaborador:widget.idColaborador,)),
                               );
+
                             } else {
                               showDialog(
                                   context: context,
@@ -213,4 +217,21 @@ registerUser(String nombre, String apellido1, String apellido2, String calle, St
   }
 
   return response;
+}
+
+showAlertDialog(BuildContext context) {
+  AlertDialog alert = AlertDialog(
+
+    title: Text("Se ha guardado y asignado el boleto al comprador"),
+    actions: [
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

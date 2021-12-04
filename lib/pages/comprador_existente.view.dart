@@ -90,7 +90,7 @@ class _CompradorExistente extends State<CompradorExistente> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegisterComprador(numBoleto: widget.numBoleto.toString())),
+                                builder: (context) => RegisterComprador(numBoleto: widget.numBoleto.toString(), idColaborador: widget.idColaborador,)),
                           );
 
                         },
