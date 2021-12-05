@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:sorteosApp/pages/abonar.view.dart';
 import 'package:sorteosApp/pages/comprador_existente.view.dart';
 
 class Boleto_especifico extends StatefulWidget {
@@ -190,6 +191,13 @@ class _Boleto_especifico extends State<Boleto_especifico> {
                                         SizedBox(height: 50.h,),
                                         ElevatedButton(
                                           onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Abonar(
+                                                      numBoleto: widget.numBoleto, idColaborador: widget.idColaborador, ),),
+                                            );
                                           },
                                           style: ButtonStyle(
                                             fixedSize: MaterialStateProperty.all(Size(150.w, 50.h)),

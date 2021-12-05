@@ -8,6 +8,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sorteosApp/pages/boleto_espec%C3%ADfico.view.dart';
 import 'package:sorteosApp/pages/home.view.dart';
+import 'globals.dart' as globals;
+
+
+
 
 class Boletos extends StatefulWidget {
   final String idCartera;
@@ -39,10 +43,17 @@ class _Boletos extends State<Boletos> {
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
+      print(response.body.toString());
     } catch (err) {
       print(err);
     }
     return posts;
+  }
+
+  @override
+  initState() {
+    _loadData(globals.filtro);
+    super.initState();
   }
 
   @override
@@ -60,6 +71,7 @@ class _Boletos extends State<Boletos> {
             title: IconButton(
               onPressed: () {
                 Navigator.pop(context);
+                globals.filtro = "0";
               },
               icon: Icon(Icons.arrow_back_ios),
               color: Colors.black,
@@ -102,7 +114,11 @@ class _Boletos extends State<Boletos> {
                       height: 33.h,
                       width: 100.w,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            globals.filtro = "0";
+                          });
+                        },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -124,7 +140,11 @@ class _Boletos extends State<Boletos> {
                       height: 33.h,
                       width: 100.w,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            globals.filtro = "1";
+                          });
+                        },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -146,7 +166,11 @@ class _Boletos extends State<Boletos> {
                       height: 33.h,
                       width: 100.w,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            globals.filtro = "2";
+                          });
+                        },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -167,7 +191,7 @@ class _Boletos extends State<Boletos> {
                 ),
                 Expanded(
                     child: FutureBuilder(
-                        future: _loadData("0"),
+                        future: _loadData(globals.filtro),
                         builder:
                             (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
                                 snapshot.hasData

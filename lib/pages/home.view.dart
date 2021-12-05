@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sorteosApp/pages/boletosNoVendidos.view.dart';
+import 'package:sorteosApp/pages/boletosVendidos.view.dart';
 import 'package:sorteosApp/pages/carteras.view.dart';
 import 'package:sorteosApp/pages/venderBolero.view.dart';
 import 'package:sorteosApp/widget/HomeButton.widget.dart';
@@ -56,7 +57,7 @@ class _Home extends State<Home> {
               children: [
                 HomeButton("assets/ticket.png", "Vender boletos", BoletosNoVendidos(idColaborador: widget.idColaborador,)),
                 SizedBox(height: 25.h),
-                HomeButton("assets/coin.png", "Agregar abono", Login()),
+                HomeButton("assets/coin.png", "Agregar abono", BoletosVendidos(idColaborador: widget.idColaborador,)),
                 SizedBox(height: 25.h),
                 HomeButton("assets/wallet.png", "Carteras", Carteras(id: widget.idColaborador)),
               ],

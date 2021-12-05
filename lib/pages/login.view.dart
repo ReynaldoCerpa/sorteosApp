@@ -20,6 +20,7 @@ class _Login extends State<Login> {
   final username = TextEditingController();
   final password = TextEditingController();
   final log = TextEditingController();
+  final idColaborador  = "";
 
   @override
   Widget build(BuildContext context) {
