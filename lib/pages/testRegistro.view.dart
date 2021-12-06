@@ -144,13 +144,11 @@ class _RegisterColaborador extends State<RegisterColaborador> {
                                 if(res == true){
                                   print("cuenta valida");
 
-
+                                  showAlertDialog(context);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) => Login()),
-
                                   );
-                                  showAlertDialog(context);
 
                                 } else {
                                   showDialog(
@@ -224,11 +222,10 @@ registerUser(String nombre, String apellido1, String apellido2, String calle, St
   return response;
 }
 
-
 showAlertDialog(BuildContext context) {
   AlertDialog alert = AlertDialog(
 
-    title: Text("Se ha registrado el usuario"),
+    title: Text("Se ha guardado y asignado el boleto al comprador"),
     actions: [
     ],
   );

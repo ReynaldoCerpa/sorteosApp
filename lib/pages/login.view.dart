@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:sorteosApp/pages/home.view.dart';
 import 'package:sorteosApp/pages/register.view.dart';
+import 'package:http/http.dart' as http;
+
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -20,7 +23,7 @@ class _Login extends State<Login> {
   final username = TextEditingController();
   final password = TextEditingController();
   final log = TextEditingController();
-  final idColaborador  = "";
+  late String idColaborador  = "";
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +81,7 @@ class _Login extends State<Login> {
                             print(res.body);
                             if(res.body == "true"){
                               print("cuenta valida");
+                              print(idColaborador);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => Home(idColaborador: "1",)),
@@ -124,7 +128,7 @@ class _Login extends State<Login> {
                     onTap: () {
                       Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => Register()),
+                                  MaterialPageRoute(builder: (context) => RegisterColaborador()),
                                 );
                     },
                   ),
@@ -139,7 +143,7 @@ class _Login extends State<Login> {
 }
 
 sendLogin(String username, String password) async {
-  final url = Uri.parse("http://192.168.1.133:3000/login");
+  final url = Uri.parse("http://10.0.0.6:3000/login");
   final data = {"username": username, "password": password};
   final res = await post(url, body: data);
 
@@ -147,3 +151,5 @@ sendLogin(String username, String password) async {
   print(res.body);
   return res;
 }
+
+

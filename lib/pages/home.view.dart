@@ -10,8 +10,7 @@ import 'package:sorteosApp/pages/login.view.dart';
 
 class Home extends StatefulWidget {
   final String idColaborador;
-  const Home({Key? key, required this.idColaborador})
-      : super(key: key);
+  const Home({Key? key, required this.idColaborador}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -30,36 +29,64 @@ class _Home extends State<Home> {
             toolbarHeight: 60.h,
             backgroundColor: Colors.amber,
             title: Container(
-              width: 75.w,
-              child: Image.asset("assets/main-logo.png"),
-            ),
+                height: 40.h,
+                child: Row(
+                  children: [
+                    Image.asset("assets/main-logo.png"),
+                    Text(
+                      "Nombre de usuario",
+                      style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    ),
+                  ],
+                )),
             actions: [
-              Row(
-                children: [
-                  Text(
-                    "Nombre de usuario",
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.settings),
-                  )
-                ],
-              )
+              PopupMenuButton(
+                  offset: Offset(0, 50),
+                  icon: Icon(Icons.settings),
+                  itemBuilder: (context) => [
+                        PopupMenuItem(
+                            value: 1,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Login()),
+                                );
+
+                              },
+                              child: Text(
+                                "Cerrar Sesión",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            )),
+                      ])
             ],
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 35.w, vertical: 30.h),
             child: Column(
               children: [
-                HomeButton("assets/ticket.png", "Vender boletos", BoletosNoVendidos(idColaborador: widget.idColaborador,)),
+                HomeButton(
+                    "assets/ticket.png",
+                    "Vender boletos",
+                    BoletosNoVendidos(
+                      idColaborador: widget.idColaborador,
+                    )),
                 SizedBox(height: 25.h),
-                HomeButton("assets/coin.png", "Agregar abono", BoletosVendidos(idColaborador: widget.idColaborador,)),
+                HomeButton(
+                    "assets/coin.png",
+                    "Agregar abono",
+                    BoletosVendidos(
+                      idColaborador: widget.idColaborador,
+                    )),
                 SizedBox(height: 25.h),
-                HomeButton("assets/wallet.png", "Carteras", Carteras(id: widget.idColaborador)),
+                HomeButton("assets/wallet.png", "Carteras",
+                    Carteras(id: widget.idColaborador)),
               ],
             ),
           ),

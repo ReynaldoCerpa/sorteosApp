@@ -1,5 +1,6 @@
 import 'dart:io';
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:async';
@@ -23,6 +24,7 @@ class Abonar extends StatefulWidget {
 }
 
 class _Abonar extends State<Abonar> {
+
   Future<List> _loadData(String filtro) async {
     List posts = [];
     try {
@@ -31,7 +33,7 @@ class _Abonar extends State<Abonar> {
         'numBoleto': numBoleto,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('192.168.1.133:3000', '/boletoespecifico');
+      final uri = Uri.http('10.0.0.6:3000', '/abonos');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
@@ -42,6 +44,28 @@ class _Abonar extends State<Abonar> {
     return posts;
   }
 
+  Future<List> _loadTotal() async {
+    List posts = [];
+    try {
+      final numBoleto = widget.numBoleto;
+      final body = {
+        'numBoleto': numBoleto,
+      };
+      final jsonString = json.encode(body);
+      final uri = Uri.http('10.0.0.6:3000', '/totalabono');
+      final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+      final response = await http.post(uri, headers: headers, body: jsonString);
+      posts = jsonDecode(response.body);
+      print(posts);
+    } catch (err) {
+      print(err);
+    }
+    return posts;
+  }
+
+
+
+
   @override
   initState() {
     super.initState();
@@ -49,7 +73,6 @@ class _Abonar extends State<Abonar> {
 
   @override
   Widget build(BuildContext context) {
-    final total = ObtenerTotal(widget.numBoleto);
     const lightGrey = Color(0xFFD2D2D2);
     const yellow = Color(0xFFF1D100);
     const lightyellow = Color(0xFFF1D100);
@@ -92,213 +115,152 @@ class _Abonar extends State<Abonar> {
               )
             ],
           ),
-          body: Column(
-            children: [
-              Text(total.toString()),
-              FutureBuilder(
-                  future: _loadData("0"),
-                  builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
-                      snapshot.hasData
-                          ? ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (BuildContext context, index) =>
-                                  SizedBox(
-                                child: (snapshot.data![index]['nombre']
-                                            .toString() !=
-                                        "null")
-                                    ? Column(children: [
-                                        Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 25.h,
-                                            ),
-                                            Text(
-                                              "Fecha de venta " +
-                                                  snapshot.data![index]['fecha']
-                                                      .toString(),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.black),
-                                            ),
-                                            SizedBox(
-                                              height: 25.h,
-                                            ),
-                                            Container(
-                                              height: 50.h,
-                                              width: double.maxFinite,
-                                              color: Colors.amber,
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                    "Información del Vendedor",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 20.sp,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.black)),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 25.h,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                left: 40,
-                                              ),
-                                              child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    NombreText(
-                                                        context, "Nombre:"),
-                                                    DatosText(
-                                                        context,
-                                                        snapshot.data![index]
-                                                                ['nombre']
-                                                            .toString()),
-                                                    SizedBox(
-                                                      height: 10.h,
-                                                    ),
-                                                    NombreText(
-                                                        context, "Dirección:"),
-                                                    DatosText(
-                                                        context,
-                                                        snapshot.data![index]
-                                                                ['direccion']
-                                                            .toString()),
-                                                    SizedBox(
-                                                      height: 10.h,
-                                                    ),
-                                                    NombreText(
-                                                        context, "Correo:"),
-                                                    DatosText(
-                                                        context,
-                                                        snapshot.data![index]
-                                                                ['correo']
-                                                            .toString()),
-                                                    SizedBox(
-                                                      height: 10.h,
-                                                    ),
-                                                    NombreText(
-                                                        context, "Teléfono:"),
-                                                    DatosText(
-                                                        context,
-                                                        snapshot.data![index]
-                                                                ['telefono']
-                                                            .toString()),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 50.h,
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () {},
-                                              style: ButtonStyle(
-                                                fixedSize:
-                                                    MaterialStateProperty.all(
-                                                        Size(150.w, 50.h)),
-                                                shape:
-                                                    MaterialStateProperty.all(
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        2.sp))),
-                                                foregroundColor:
-                                                    MaterialStateProperty.all(
-                                                        Colors.black),
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        Colors.amber),
-                                              ),
-                                              child: Text(
-                                                "Abonar",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w800,
-                                                    fontSize: 20.sp),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ])
-                                    : Container(
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 25.h,
-                                            ),
-                                            Text(
-                                              "Boleto no vendido",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.black),
-                                            ),
-                                            SizedBox(
-                                              height: 50.h,
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        CompradorExistente(
-                                                      numBoleto:
-                                                          widget.numBoleto,
-                                                      idColaborador:
-                                                          widget.idColaborador,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              style: ButtonStyle(
-                                                fixedSize:
-                                                    MaterialStateProperty.all(
-                                                        Size(150.w, 50.h)),
-                                                shape:
-                                                    MaterialStateProperty.all(
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        2.sp))),
-                                                foregroundColor:
-                                                    MaterialStateProperty.all(
-                                                        Colors.black),
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        Colors.amber),
-                                              ),
-                                              child: Text(
-                                                "Vender",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w800,
-                                                    fontSize: 20.sp),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                              ),
-                            )
-                          : Center(
-                              child: CircularProgressIndicator(),
-                            )),
-            ],
+          body:  SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: Container(
+                        color: Colors.amber,
+                        child: Padding(padding: EdgeInsets.only(left: 10.w),
+                          child: Text("Abonos",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 40.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black)),)
+                    )),
+                  ],
+                ),
+                FutureBuilder(
+                    future: _loadTotal(),
+                    builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
+                    snapshot.hasData
+                        ? ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, index) =>
+                          Padding(
+                              padding: EdgeInsets.only(left: 50.w, top: 30.h, right: 50.w, bottom: 30.h),
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Saldo Pendiente",
+                                        style: TextStyle(
+                                            fontSize: 30.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black)),
+                                    SizedBox(height: 5.h,),
+                                    Text("\$ " + snapshot.data![index]['cantidad']
+                                        .toString(),
+                                      style: TextStyle(
+                                          fontSize: 30.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black),),
+                                  ],
+                                ),
+                              )),
+                    )
+                        : Center(
+                      child: CircularProgressIndicator(),
+                    )),
+                FutureBuilder(
+                    future: _loadData("0"),
+                    builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
+                    snapshot.hasData
+                        ? ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, index) =>
+                          Padding(
+                              padding: EdgeInsets.only(left: 20.w, top: 10.h, right: 20.w, bottom: 10.h),
+                              child:
+                              Container(
+
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Padding(padding: EdgeInsets.only(left: 10.w),
+                                          child: Text("Pago "+(index+1).toString(),
+                                            style: TextStyle(
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.black),)
+                                          ,),
+                                        Expanded(child: Padding(padding: EdgeInsets.only(left: 20.w),
+                                          child:Text(snapshot.data![index]['fecha']
+                                              .toString(),
+                                            style: TextStyle(
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black),),
+                                        ),)
+                                      ],
+                                    ),
+                                    SizedBox(height: 5.h,),
+                                    Padding(padding: EdgeInsets.only(left: 30.w),
+                                      child:Text("\$ " + snapshot.data![index]['cantidad']
+                                          .toString(),
+                                        style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black),),
+                                    )
+                                  ],
+                                ),
+                              )),
+                    )
+                        : Center(
+                      child: CircularProgressIndicator(),
+                    )),
+        Padding(padding: EdgeInsets.only(bottom: 20.h, top: 10.h),
+        child: ElevatedButton(
+          onPressed: (){
+          },
+          style: ButtonStyle(
+            fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
+            shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.sp)
+                )
+            ),
+            foregroundColor: MaterialStateProperty.all(Colors.black),
+            backgroundColor: MaterialStateProperty.all(Colors.amber),
           ),
+          child: Text(
+            "Abonar",
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 18.sp),
+          ),
+        ),),
+              ],
+            ),
+          ),
+
         ),
       ),
     );
@@ -319,12 +281,3 @@ Widget NombreText(BuildContext context, String text) {
           fontSize: 20.sp, fontWeight: FontWeight.w700, color: Colors.black));
 }
 
-ObtenerTotal(String idBoleto) async {
-  final url = Uri.parse("http://192.168.1.133:3000/totalabono");
-  final data = {
-    "numBoleto": idBoleto,
-  };
-  final res = await http.post(url, body: data);
-
-  return "hola";
-}
