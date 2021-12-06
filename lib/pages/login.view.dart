@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:sorteosApp/pages/home.view.dart';
+import 'package:sorteosApp/pages/recuperarContrasena.view.dart';
 import 'package:sorteosApp/pages/register.view.dart';
 import 'package:http/http.dart' as http;
 
@@ -121,7 +123,7 @@ class _Login extends State<Login> {
                     ),  
                   GestureDetector(
                     child: Text(
-                      "Registrate",
+                      "Regístrate",
                       style: TextStyle(
                           fontSize: 20, decoration: TextDecoration.underline),
                     ),
@@ -134,6 +136,21 @@ class _Login extends State<Login> {
                   ),
                 ],
               ),
+              Expanded(child: Container(
+                alignment: Alignment.bottomCenter,
+                child: GestureDetector(
+                  child: Text(
+                    "Recuperar contraseña",
+                    style: TextStyle(
+                        fontSize: 20, decoration: TextDecoration.underline),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RecuperarContrasena()),
+                    );
+                  },
+                ),))
             ]),
           ),
         ),

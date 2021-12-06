@@ -68,11 +68,18 @@ class _Abonar extends State<Abonar> {
 
   @override
   Widget build(BuildContext context) {
+
     final cantidad = TextEditingController();
     const lightGrey = Color(0xFFD2D2D2);
     const yellow = Color(0xFFF1D100);
     const lightyellow = Color(0xFFF1D100);
-    return ScreenUtilInit(
+    return WillPopScope(
+        onWillPop: () async {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('The System Back Button is Deactivated')));
+      return false;
+    },
+    child: ScreenUtilInit(
       builder: () => MaterialApp(
         home: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -178,8 +185,8 @@ class _Abonar extends State<Abonar> {
                                                       Text(
                                                         "\$ " +
                                                             snapshot
-                                                                .data![index]
-                                                                    ['saldoPendiente']
+                                                                .data![index][
+                                                                    'saldoPendiente']
                                                                 .toString(),
                                                         style: TextStyle(
                                                             fontSize: 30.sp,
@@ -314,105 +321,117 @@ class _Abonar extends State<Abonar> {
                                       top: 10.h,
                                       right: 50.w,
                                       bottom: 30.h),
-                                  child: (snapshot.data![index]['saldoPendiente']
-                                              .toString() !=
-                                          "0.0")
-                                      ? Padding(
-                                          padding: EdgeInsets.only(
-                                              bottom: 20.h, top: 10.h),
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      title: Container(
-                                                        child: Column(
-                                                          children: [
-                                                            Text(
-                                                              "Ingrese Cantidad:",
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
+                                  child:
+                                      (snapshot.data![index]['saldoPendiente']
+                                                  .toString() !=
+                                              "0.0")
+                                          ? Padding(
+                                              padding: EdgeInsets.only(
+                                                  bottom: 20.h, top: 10.h),
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return AlertDialog(
+                                                          title: Container(
+                                                            child: Column(
+                                                              children: [
+                                                                Text(
+                                                                  "Ingrese Cantidad:",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                                TextInput(
+                                                                    "Cantidad",
+                                                                    cantidad,
+                                                                    false),
+                                                                ElevatedButton(
+                                                                  style:
+                                                                      ButtonStyle(
+                                                                    fixedSize: MaterialStateProperty
+                                                                        .all(Size(
+                                                                            140.w,
+                                                                            40.h)),
+                                                                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(50.sp))),
+                                                                    foregroundColor:
+                                                                        MaterialStateProperty.all(
+                                                                            Colors.black),
+                                                                    backgroundColor:
+                                                                        MaterialStateProperty.all(
+                                                                            Colors.amber),
+                                                                  ),
+                                                                  onPressed:
+                                                                      () async {
+                                                                    bool res = await registerUser(
+                                                                        widget
+                                                                            .idColaborador,
+                                                                        widget
+                                                                            .numBoleto,
+                                                                        cantidad
+                                                                            .text);
+
+                                                                    if (res ==
+                                                                        true) {
+                                                                      print(
+                                                                          "cuenta valida");
+
+                                                                      setState(
+                                                                          () {});
+                                                                      showAlertDialog(
+                                                                          context);
+                                                                    } else if (res ==
+                                                                        false) {
+                                                                      showNegativeAlertDialog(
+                                                                          context);
+                                                                    }
+                                                                  },
+                                                                  child: Text(
+                                                                    "Abonar",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            18.sp),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            TextInput("Cantidad", cantidad, false),
-                                                        ElevatedButton(
-                                                          style: ButtonStyle(
-                                                          fixedSize:
-                                                          MaterialStateProperty.all(
-                                                              Size(140.w, 40.h)),
-                                                          shape: MaterialStateProperty.all(
-                                                              RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      50.sp))),
-                                                          foregroundColor:
-                                                          MaterialStateProperty.all(
-                                                              Colors.black),
-                                                          backgroundColor:
-                                                          MaterialStateProperty.all(
-                                                              Colors.amber),
-                                                        ),
-                                                          onPressed: () async {
-
-                                                            bool res = await registerUser(widget.idColaborador, widget.numBoleto, cantidad.text);
-
-                                                            if(res == true){
-
-                                                              print("cuenta valida");
-
-
-                                                              setState(() {
-
-                                                              });
-                                                              showAlertDialog(context);
-
-                                                            } else if(res == false) {
-
-                                                              showNegativeAlertDialog(context);
-
-                                                            }
-                                                          },
-                                                          child: Text(
-                                                            "Abonar",
-                                                            style: TextStyle(
-                                                                color: Colors.black,
-                                                                fontSize: 18.sp),
                                                           ),
-                                                        ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      actions: [],
-                                                    );
-                                                  });
-                                            },
-                                            style: ButtonStyle(
-                                              fixedSize:
-                                                  MaterialStateProperty.all(
-                                                      Size(140.w, 40.h)),
-                                              shape: MaterialStateProperty.all(
-                                                  RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50.sp))),
-                                              foregroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.black),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.amber),
-                                            ),
-                                            child: Text(
-                                              "Abonar",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18.sp),
-                                            ),
-                                          ),
-                                        )
-                                      : Container(),
+                                                          actions: [],
+                                                        );
+                                                      });
+                                                },
+                                                style: ButtonStyle(
+                                                  fixedSize:
+                                                      MaterialStateProperty.all(
+                                                          Size(140.w, 40.h)),
+                                                  shape: MaterialStateProperty
+                                                      .all(RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      50.sp))),
+                                                  foregroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.black),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.amber),
+                                                ),
+                                                child: Text(
+                                                  "Abonar",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 18.sp),
+                                                ),
+                                              ),
+                                            )
+                                          : Container(),
                                 ),
                               )
                             : Center(
@@ -423,7 +442,7 @@ class _Abonar extends State<Abonar> {
           ),
         ),
       ),
-    );
+    ), );
   }
 }
 
@@ -446,12 +465,11 @@ registerUser(String idColaborador, String numBoleto, String cantidad) async {
   bool response = false;
   final data = {
     "idColaborador": idColaborador,
-    "numBoleto":numBoleto,
-    "cantidad":cantidad,
-
+    "numBoleto": numBoleto,
+    "cantidad": cantidad,
   };
   final res = await http.post(url, body: data);
-  if(res.body == "true"){
+  if (res.body == "true") {
     response = true;
   }
   print(response);
@@ -461,10 +479,8 @@ registerUser(String idColaborador, String numBoleto, String cantidad) async {
 
 showAlertDialog(BuildContext context) {
   AlertDialog alert = AlertDialog(
-
     title: Text("Se ha registrado el abono"),
-    actions: [
-    ],
+    actions: [],
   );
 
   // show the dialog
@@ -475,14 +491,11 @@ showAlertDialog(BuildContext context) {
     },
   );
 }
-
 
 showNegativeAlertDialog(BuildContext context) {
   AlertDialog alert = AlertDialog(
-
     title: Text("No se pudo completar el abono"),
-    actions: [
-    ],
+    actions: [],
   );
 
   // show the dialog
@@ -493,4 +506,3 @@ showNegativeAlertDialog(BuildContext context) {
     },
   );
 }
-

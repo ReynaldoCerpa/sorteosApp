@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "722564837645",
+    "project_id": "cetys-sorteos-app",
+    "storage_bucket": "cetys-sorteos-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722564837645:android:2ae797aad283ed3402c044",
+        "android_client_info": {
+          "package_name": "com.example.sorteos_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722564837645-glno68uro60dku7b2kefd1m2tnh54386.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9aWOX55B_Z-EDXQnjyRA3eusKEvcB2qM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722564837645-glno68uro60dku7b2kefd1m2tnh54386.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
