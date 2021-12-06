@@ -39,7 +39,7 @@ class _Boletos extends State<Boletos> {
         'filtro': filtro,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('10.0.0.6:3000', '/boletos');
+      final uri = Uri.http('192.168.1.133:3000', '/boletos');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
@@ -68,38 +68,35 @@ class _Boletos extends State<Boletos> {
           appBar: AppBar(
             toolbarHeight: 60.h,
             backgroundColor: Colors.amber,
-            title: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-                globals.filtro = "0";
-              },
-              icon: Icon(Icons.arrow_back_ios),
-              color: Colors.black,
-            ),
-            actions: [
-              Row(
+            title: Row(
                 children: [
-                  SizedBox(
-                    width: 10.w,
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back_ios),
+                    color: Colors.black,
                   ),
-                  SizedBox(
-                    width: 90.w,
-                    child: Image.asset("assets/main-logo.png"),
+                  Row(
+                    children: [
+
+                      Container(
+                        width: 90.w,
+                        child: Image.asset("assets/main-logo.png"),
+                      ),
+                      SizedBox(width: 80.w,),
+                      Text(
+                        "Boletos",
+                        style: TextStyle(
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                      SizedBox(width: 15.w),
+                    ],
                   ),
-                  SizedBox(
-                    width: 140.w,
-                  ),
-                  Text(
-                    "Boletos",
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                  SizedBox(width: 15.w),
-                ],
-              )
-            ],
+                ]
+            ),
           ),
           body: SizedBox(
             height: double.infinity,

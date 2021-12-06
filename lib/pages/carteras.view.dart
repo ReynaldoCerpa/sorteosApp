@@ -28,11 +28,10 @@ class _Carteras extends State<Carteras> {
         'idColaborador': idColaboador,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('10.0.0.6:3000', '/carteras');
+      final uri = Uri.http('192.168.1.133:3000', '/carteras');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
-
     } catch (err) {
       print(err);
     }
@@ -62,12 +61,16 @@ class _Carteras extends State<Carteras> {
               actions: [
                 Row(
                   children: [
-                    SizedBox(width: 10.w,),
+                    SizedBox(
+                      width: 10.w,
+                    ),
                     Container(
                       width: 90.w,
                       child: Image.asset("assets/main-logo.png"),
                     ),
-                    SizedBox(width: 100.w,),
+                    SizedBox(
+                      width: 100.w,
+                    ),
                     Text(
                       "Carteras",
                       style: TextStyle(
@@ -83,53 +86,74 @@ class _Carteras extends State<Carteras> {
             body: FutureBuilder(
                 future: _loadData(),
                 builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
-                snapshot.hasData
-                    ? ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, index) => Card(
-                    margin: const EdgeInsets.all(10),
-                    color: lightGrey,
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Boletos(idColaborador: widget.id, idCartera: snapshot.data![index]['idCartera'].toString())),
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(
-                                'Cartera #' +
-                                    snapshot.data![index]['idCartera']
-                                        .toString(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 20.sp),
-                              ),
+                    snapshot.hasData
+                        ? ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, index) => Card(
+                              margin: const EdgeInsets.all(10),
+                              color: lightGrey,
+                              child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Boletos(
+                                              idColaborador: widget.id,
+                                              idCartera: snapshot.data![index]
+                                                      ['idCartera']
+                                                  .toString())),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Text(
+                                          'Cartera #' +
+                                              snapshot.data![index]['idCartera']
+                                                  .toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 20.sp),
+                                        ),
+                                      ),
+                                      SizedBox(width: 160.w),
+
+                                      Flexible(
+                                        child: Container(
+                                          child: Align(
+                                            alignment: Alignment
+                                                .centerRight,
+                                            child: IconButton(
+                                              onPressed: () {
+                                                print(snapshot.data![index]
+                                                ['idCartera']);
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) => Boletos(
+                                                          idColaborador: widget.id,
+                                                          idCartera: snapshot
+                                                              .data![index]
+                                                          ['idCartera']
+                                                              .toString())),
+                                                );
+                                              },
+                                              icon: Icon(Icons.arrow_forward_ios),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+                                    ],
+                                  )),
                             ),
-                            SizedBox(width: 160.w),
-                            IconButton(
-                              onPressed: (){
-                                print(snapshot.data![index]['idCartera']);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Boletos(idColaborador: widget.id, idCartera: snapshot.data![index]['idCartera'].toString())),
-                                );
-                              },
-                              icon: Icon(Icons.arrow_forward_ios),
-                            )
-                          ],
-                        )),
-                  ),
-                )
-                    : Center(
-                  child: CircularProgressIndicator(),
-                ))),
+                          )
+                        : Center(
+                            child: CircularProgressIndicator(),
+                          ))),
       ),
     );
   }
@@ -139,4 +163,3 @@ class _Carteras extends State<Carteras> {
   }
 }
 //Text(snapshot.data![index]['title']),
-

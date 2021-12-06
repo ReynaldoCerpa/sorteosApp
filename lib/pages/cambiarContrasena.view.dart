@@ -7,32 +7,23 @@ import 'package:sorteosApp/pages/home.view.dart';
 import 'package:sorteosApp/pages/login.view.dart';
 import 'package:sorteosApp/widget/TextInput.widget.dart';
 
-class RegisterColaborador extends StatefulWidget {
+class CambiarContrasena extends StatefulWidget {
+  final String idColaborador;
 
-  const RegisterColaborador({Key? key})
+  const CambiarContrasena({Key? key, required this.idColaborador})
       : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _RegisterColaborador();
+    return _CambiarContrasena();
   }
 }
 
-class _RegisterColaborador extends State<RegisterColaborador> {
+class _CambiarContrasena extends State<CambiarContrasena> {
 
-  final nombre = TextEditingController();
-  final apellido1 = TextEditingController();
-  final apellido2 = TextEditingController();
-  final calle = TextEditingController();
-  final numint = TextEditingController();
-  final numext = TextEditingController();
-  final colonia = TextEditingController();
-  final codigoPostal = TextEditingController();
-  final ciudad = TextEditingController();
-  final correo = TextEditingController();
-  final telefono = TextEditingController();
-  final contrasena = TextEditingController();
-  final nombreusuario = TextEditingController();
+  final nueva = TextEditingController();
+  final nueva2 = TextEditingController();
+  final vieja = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +51,10 @@ class _RegisterColaborador extends State<RegisterColaborador> {
                     child: Image.asset("assets/main-logo.png"),
                   ),
                   SizedBox(
-                    width: 5.w,
+                    width: 10.w,
                   ),
                   Text(
-                    "Registrar Colaborador",
+                    "Cambiar Contraseña",
                     style: TextStyle(
                         fontSize: 17.sp,
                         fontWeight: FontWeight.w700,
@@ -87,20 +78,9 @@ class _RegisterColaborador extends State<RegisterColaborador> {
                             fontWeight: FontWeight.bold, fontSize: 25.sp),
                       ),
                     ),
-                    TextInput("Nombre", nombre, false),
-                    TextInput("Apellido Paterno", apellido1, false),
-                    TextInput("Apellido Materno", apellido2, false),
-                    TextInput("Calle", calle, false),
-                    TextInput("Número interior", numint, false),
-                    TextInput("Número Exterior", numext, false),
-                    TextInput("Colonia", colonia, false),
-                    TextInput("Codigo Postal", codigoPostal, false),
-                    TextInput("Ciudad", ciudad, false),
-                    TextInput("Correo", correo, false),
-                    TextInput("Telefono (solo número)", telefono, false),
-                    TextInput("Usuario", nombreusuario, false),
-                    TextInput("Contrasena", contrasena, true),
-
+                    TextInput("Contraseña Nueva", nueva, true),
+                    TextInput("Confirmar Contraseña", nueva2, true),
+                    TextInput("Contraseña Anterior", vieja, true),
                     Padding(
                       padding: EdgeInsets.only(top: 20, bottom: 10.0),
                       child: SizedBox(
@@ -135,7 +115,7 @@ class _RegisterColaborador extends State<RegisterColaborador> {
                             ElevatedButton(
                               onPressed: () async {
 
-                                bool res = await registerUser(nombre.text, apellido1.text, apellido2.text, calle.text, numint.text, numext.text, colonia.text, codigoPostal.text, ciudad.text, correo.text, telefono.text, nombreusuario.text,contrasena.text);
+                                bool res = await registerUser(nueva.text, nueva2.text, vieja.text, widget.idColaborador);
 
                                 if(res == true){
                                   print("cuenta valida");
@@ -154,7 +134,7 @@ class _RegisterColaborador extends State<RegisterColaborador> {
                                       builder: (BuildContext context){
                                         return AlertDialog(
                                           title: Container(
-                                            child: Text("No se pudo completar el registro",
+                                            child: Text("No se pudo cambiar la contraseña",
                                               textAlign: TextAlign.center,),
                                           ),
                                           actions: [],
@@ -194,23 +174,15 @@ class _RegisterColaborador extends State<RegisterColaborador> {
   }
 }
 
-registerUser(String nombre, String apellido1, String apellido2, String calle, String numint, String numext, String colonia, String codigoPostal, String ciudad, String correo, String telefono, String nombreusuario, String contrasena) async {
-  final url = Uri.parse("http://192.168.1.133:3000/register");
+registerUser(String nueva, String nueva2, String vieja, String idColaborador) async {
+  final url = Uri.parse("http://192.168.1.133:3000/cambiarContraColaborador");
   bool response = false;
   final data = {
-    "nombre": nombre,
-    "apellido1": apellido1,
-    "apellido2": apellido2,
-    "calle": calle,
-    "numint": numint,
-    "numext": numext,
-    "colonia": colonia,
-    "codigoPostal": codigoPostal,
-    "ciudad": ciudad,
-    "correo": correo,
-    "telefono": telefono,
-    "nombreusuario": nombreusuario,
-    "contrasena": contrasena,
+    "idColaborador":idColaborador,
+    "nueva": nueva,
+    "nueva2": nueva2,
+    "vieja": vieja,
+
   };
   final res = await http.post(url, body: data);
   if(res.body == "true"){
@@ -224,7 +196,24 @@ registerUser(String nombre, String apellido1, String apellido2, String calle, St
 showAlertDialog(BuildContext context) {
   AlertDialog alert = AlertDialog(
 
-    title: Text("Se ha registrado el usuario"),
+    title: Text("Se ha cambiado la contraseña"),
+    actions: [
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+showNegativeAlertDialog(BuildContext context) {
+  AlertDialog alert = AlertDialog(
+
+    title: Text("No se pudo completar el cambio"),
     actions: [
     ],
   );

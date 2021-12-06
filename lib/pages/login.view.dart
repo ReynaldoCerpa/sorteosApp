@@ -143,7 +143,7 @@ class _Login extends State<Login> {
 }
 
 sendLogin(String username, String password) async {
-  final url = Uri.parse("http://10.0.0.6:3000/login");
+  final url = Uri.parse("http://192.168.1.133:3000/login");
   final data = {"username": username, "password": password};
   final res = await post(url, body: data);
 

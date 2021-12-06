@@ -31,7 +31,7 @@ class _BoletosVendidos extends State<BoletosVendidos> {
         'idColaborador': idColaboador,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('10.0.0.6:3000', '/boletosvendidos');
+      final uri = Uri.http('192.168.1.133:3000', '/boletosvendidos');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
@@ -115,7 +115,7 @@ class _BoletosVendidos extends State<BoletosVendidos> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Boleto_especifico(
+                                                      Abonar(
                                                         numBoleto: snapshot
                                                             .data![index]
                                                                 ['numBoleto']

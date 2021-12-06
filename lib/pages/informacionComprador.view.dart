@@ -33,7 +33,7 @@ class _InforamcionCompradores extends State<InformacionCompradores> {
         'idComprador': idComprador,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('10.0.0.6:3000', '/infoComprador');
+      final uri = Uri.http('192.168.1.133:3000', '/infoComprador');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
@@ -57,37 +57,35 @@ class _InforamcionCompradores extends State<InformacionCompradores> {
           appBar: AppBar(
             toolbarHeight: 60.h,
             backgroundColor: Colors.amber,
-            title: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back_ios),
-              color: Colors.black,
-            ),
-            actions: [
+            title: Row(children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.arrow_back_ios),
+                color: Colors.black,
+              ),
               Row(
                 children: [
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  SizedBox(
+                  Container(
                     width: 90.w,
                     child: Image.asset("assets/main-logo.png"),
                   ),
                   SizedBox(
-                    width: 90.w,
+                    width: 30.w,
                   ),
                   Text(
                     "Boleto #" + widget.numBoleto,
+                    textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
-                  SizedBox(width: 15.w),
                 ],
-              )
-            ],
+              ),
+            ]),
+
           ),
           body: FutureBuilder(
               future: _loadData("0"),
@@ -287,7 +285,7 @@ Widget NombreText(BuildContext context, String text) {
 }
 
 registerUser(String nombre, String numBoleto) async {
-  final url = Uri.parse("http://10.0.0.6:3000/asignarBoleto");
+  final url = Uri.parse("http://192.168.1.133:3000/asignarBoleto");
   bool response = false;
   final data = {
     "idComprador": nombre,

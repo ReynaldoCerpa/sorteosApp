@@ -45,37 +45,33 @@ class _RegisterComprador extends State<RegisterComprador> {
           appBar: AppBar(
             toolbarHeight: 60.h,
             backgroundColor: Colors.amber,
-            title: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back_ios),
-              color: Colors.black,
-            ),
-            actions: [
+            title: Row(children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.arrow_back_ios),
+                color: Colors.black,
+              ),
               Row(
                 children: [
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  SizedBox(
+                  Container(
                     width: 90.w,
                     child: Image.asset("assets/main-logo.png"),
                   ),
                   SizedBox(
-                    width: 140.w,
+                    width: 10.w,
                   ),
                   Text(
                     "Registro Comprador",
                     style: TextStyle(
-                        fontSize: 20.sp,
+                        fontSize: 17.sp,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
-                  SizedBox(width: 15.w),
                 ],
-              )
-            ],
+              ),
+            ]),
           ),
           body: SafeArea(
             child:  SingleChildScrollView(
@@ -195,7 +191,7 @@ class _RegisterComprador extends State<RegisterComprador> {
 }
 
 registerUser(String nombre, String apellido1, String apellido2, String calle, String numint, String numext, String colonia, String codigoPostal, String ciudad, String correo, String telefono, String numBoleto) async {
-  final url = Uri.parse("http://10.0.0.6:3000/registerComprador");
+  final url = Uri.parse("http://192.168.1.133:3000/registerComprador");
   bool response = false;
   final data = {
     "nombre": nombre,

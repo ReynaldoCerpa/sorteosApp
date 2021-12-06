@@ -32,7 +32,7 @@ class _Boleto_especifico extends State<Boleto_especifico> {
         'numBoleto': numBoleto,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('10.0.0.6:3000', '/boletoespecifico');
+      final uri = Uri.http('192.168.1.133:3000', '/boletoespecifico');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
