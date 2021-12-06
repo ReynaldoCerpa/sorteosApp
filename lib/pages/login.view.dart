@@ -9,6 +9,23 @@ import 'package:sorteosApp/pages/home.view.dart';
 import 'package:sorteosApp/pages/recuperarContrasena.view.dart';
 import 'package:sorteosApp/pages/register.view.dart';
 import 'package:http/http.dart' as http;
+import 'globals.dart' as globals;
+
+
+class Album {
+  final String idColaborador;
+  final String nombre;
+
+  Album({required this.idColaborador, required this.nombre});
+
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return Album(
+      idColaborador: json['idColaborador'],
+      nombre: json['nombre'],
+    );
+  }
+}
+
 
 
 class Login extends StatefulWidget {
@@ -21,6 +38,49 @@ class Login extends StatefulWidget {
 
 
 class _Login extends State<Login> {
+
+  Future<Album> createAlbum() async {
+    final response = await http.post(
+      Uri.parse('https://192.168.1.133:3000/logininfo'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': username.text,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return Album.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+
+  Future<Album>? _futureAlbum;
+
+
+  FutureBuilder<Album> buildFutureBuilder() {
+    return FutureBuilder<Album>(
+      future: _futureAlbum,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data!.nombre);
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+
+        globals.id = snapshot.data!.idColaborador.toString();
+        return const CircularProgressIndicator();
+      },
+    );
+  }
+
+
 
   final username = TextEditingController();
   final password = TextEditingController();
@@ -77,6 +137,9 @@ class _Login extends State<Login> {
                         height: 40.h,
                         child: ElevatedButton(
                           onPressed: () async {
+
+                            var hola = buildFutureBuilder();
+                            createAlbum();
                           
                             var res = await sendLogin(username.text, password.text);
                             print("Print res ->");
@@ -86,7 +149,7 @@ class _Login extends State<Login> {
                               print(idColaborador);
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => Home(idColaborador: "1",)),
+                                  MaterialPageRoute(builder: (context) => Home(idColaborador: "1")),
                                 );
                             } else {
                               showDialog(
@@ -167,6 +230,32 @@ sendLogin(String username, String password) async {
   print("log to the console from post request");
   print(res.body);
   return res;
+}
+
+obtenerInfo(){
+
+  Future<List> _loadData(String filtro) async {
+    List posts = [];
+    try {
+      final idComprador = "1";
+      final body = {
+        'idComprador': idComprador,
+      };
+      final jsonString = json.encode(body);
+      final uri = Uri.http('192.168.1.133:3000', '/infoComprador');
+      final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+      final response = await http.post(uri, headers: headers, body: jsonString);
+      posts = jsonDecode(response.body);
+      print(posts);
+    } catch (err) {
+      print(err);
+    }
+
+    return posts;
+  }
+
+
+
 }
 
 

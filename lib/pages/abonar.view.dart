@@ -144,6 +144,7 @@ class _Abonar extends State<Abonar> {
                         snapshot.hasData
                             ? ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
+
                                 shrinkWrap: true,
                                 itemCount: snapshot.data!.length,
                                 itemBuilder: (BuildContext context, index) =>
