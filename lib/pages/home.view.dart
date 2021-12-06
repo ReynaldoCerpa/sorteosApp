@@ -35,13 +35,6 @@ class _Home extends State<Home> {
                 child: Row(
                   children: [
                     Image.asset("assets/main-logo.png"),
-                    Text(
-                      "Nombre de usuario",
-                      style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black),
-                    ),
                   ],
                 )),
             actions: [
