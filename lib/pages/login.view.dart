@@ -147,10 +147,16 @@ class _Login extends State<Login> {
                             if(res.body == "true"){
                               print("cuenta valida");
                               print(idColaborador);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => Home(idColaborador: "1")),
-                                );
+                              data(context, username.text);
+
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Verificar Datos'),
+                                      content: setupAlertDialoadContainer(username.text),
+                                    );
+                                  });
                             } else {
                               showDialog(
                                 context: context, 
@@ -232,30 +238,134 @@ sendLogin(String username, String password) async {
   return res;
 }
 
-obtenerInfo(){
 
-  Future<List> _loadData(String filtro) async {
-    List posts = [];
-    try {
-      final idComprador = "1";
-      final body = {
-        'idComprador': idComprador,
-      };
-      final jsonString = json.encode(body);
-      final uri = Uri.http('192.168.1.133:3000', '/infoComprador');
-      final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-      final response = await http.post(uri, headers: headers, body: jsonString);
-      posts = jsonDecode(response.body);
-      print(posts);
-    } catch (err) {
-      print(err);
-    }
-
-    return posts;
+Future<List> _loadData(String usuario) async {
+  List posts = [];
+  try {
+    final body = {
+      'username': usuario,
+    };
+    final jsonString = json.encode(body);
+    final uri = Uri.http('192.168.1.133:3000', '/logininfo');
+    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+    final response = await http.post(uri, headers: headers, body: jsonString);
+    posts = jsonDecode(response.body);
+    print(posts);
+  } catch (err) {
+    print(err);
   }
+  return posts;
+}
 
-
-
+Widget data(BuildContext context, String usuario) {
+  print("hola");
+  return FutureBuilder(
+      future: _loadData(usuario),
+      builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
+      snapshot.hasData
+          ? ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: snapshot.data!.length,
+        itemBuilder: (BuildContext context, index) =>
+            SizedBox(
+              child: Text(snapshot.data![index]
+            ['idColaborador']
+                .toString()),
+            ),
+      )
+          : Center(
+        child: CircularProgressIndicator(),
+      ));
 }
 
 
+
+Widget setupAlertDialoadContainer(String username) {
+  return Container(
+    height: 200.0, // Change as per your requirement
+    width: 300.0, // Change as per your requirement
+    child: FutureBuilder(
+        future: _loadData(username),
+        builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
+        snapshot.hasData
+            ? ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: snapshot.data!.length,
+          itemBuilder: (BuildContext context, index) =>
+              SizedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("Tu Id de colaborador es:"
+                        .toString(),
+                        style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight:
+                            FontWeight
+                                .w700,
+                            color: Colors
+                                .black)),
+                    Text("#"+snapshot.data![index]
+                    ['idColaborador']
+                        .toString(),
+                        style: TextStyle(
+                            fontSize: 28.sp,
+                            fontWeight:
+                            FontWeight
+                                .w700,
+                            color: Colors
+                                .black)),
+                    SizedBox( height: 10.h,),
+                    Text("El nombre registrado es:"
+                        .toString(),
+                        style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight:
+                            FontWeight
+                                .w700,
+                            color: Colors
+                                .black)),
+                    Text(snapshot.data![index]
+                    ['nombre']
+                        .toString(),
+                        style: TextStyle(
+                        fontSize: 28.sp,
+                        fontWeight:
+                        FontWeight
+                            .w700,
+                        color: Colors
+                            .black)),
+                    Padding(padding: EdgeInsets.only(top: 10.h),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Home(idColaborador: snapshot.data![index]
+                          ['idColaborador']
+                              .toString())),
+                        );
+                      },
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.sp))),
+                        foregroundColor: MaterialStateProperty.all(Colors.black),
+                        backgroundColor: MaterialStateProperty.all(Colors.amber),
+                      ),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                        Text(
+                          "Entrar",
+                          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20.sp),
+                        )
+                      ]),
+                    ),),
+                  ],
+                ),
+              ),
+        )
+            : Center(
+          child: CircularProgressIndicator(),
+        ))
+  );
+}

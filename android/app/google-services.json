@@ -1,33 +1,62 @@
 {
   "project_info": {
-    "project_number": "722564837645",
-    "project_id": "cetys-sorteos-app",
-    "storage_bucket": "cetys-sorteos-app.appspot.com"
+    "project_number": "646327915955",
+    "project_id": "demonotificaciones-85fb5",
+    "storage_bucket": "demonotificaciones-85fb5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:722564837645:android:2ae797aad283ed3402c044",
+        "mobilesdk_app_id": "1:646327915955:android:fcf31e2397ab654bcf27c6",
         "android_client_info": {
-          "package_name": "com.example.sorteos_app"
+          "package_name": "com.example.notificaciones"
         }
       },
       "oauth_client": [
         {
-          "client_id": "722564837645-glno68uro60dku7b2kefd1m2tnh54386.apps.googleusercontent.com",
+          "client_id": "646327915955-kdqrr7rgu7ojlifumuj3ojrd87h8oqhg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA9aWOX55B_Z-EDXQnjyRA3eusKEvcB2qM"
+          "current_key": "AIzaSyDPueQDWf1dmnB4s-R_0s_b4UQ4OvbKx-0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "722564837645-glno68uro60dku7b2kefd1m2tnh54386.apps.googleusercontent.com",
+              "client_id": "646327915955-kdqrr7rgu7ojlifumuj3ojrd87h8oqhg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646327915955:android:e5d0cf74a65b9bf9cf27c6",
+        "android_client_info": {
+          "package_name": "com.example.sorteos_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646327915955-kdqrr7rgu7ojlifumuj3ojrd87h8oqhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPueQDWf1dmnB4s-R_0s_b4UQ4OvbKx-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646327915955-kdqrr7rgu7ojlifumuj3ojrd87h8oqhg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
