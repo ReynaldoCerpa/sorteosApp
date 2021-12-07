@@ -48,177 +48,182 @@ class _BoletosVendidos extends State<BoletosVendidos> {
     const lightGrey = Color(0xFFD2D2D2);
     const yellow = Color(0xFFF1D100);
     const lightyellow = Color(0xFFF1D100);
-    return ScreenUtilInit(
-      builder: () => MaterialApp(
-        home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            toolbarHeight: 60.h,
-            backgroundColor: Colors.amber,
-            title: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back_ios),
-              color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ScreenUtilInit(
+        builder: () => MaterialApp(
+          home: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              toolbarHeight: 60.h,
+              backgroundColor: Colors.amber,
+              title: Container(
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back_ios),
+                  color: Colors.black,
+                ),
+              ),
+              actions: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Container(
+                      width: 90.w,
+                      child: Image.asset("assets/main-logo.png"),
+                    ),
+                    SizedBox(
+                      width: 100.w,
+                    ),
+                    Text(
+                      "Boletos",
+                      style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    ),
+                    SizedBox(width: 15.w),
+                  ],
+                )
+              ],
             ),
-            actions: [
-              Row(
+            body: SizedBox(
+              height: double.infinity,
+              child: Column(
                 children: [
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  SizedBox(
-                    width: 90.w,
-                    child: Image.asset("assets/main-logo.png"),
-                  ),
-                  SizedBox(
-                    width: 140.w,
-                  ),
-                  Text(
-                    "Boletos",
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                  SizedBox(width: 15.w),
-                ],
-              )
-            ],
-          ),
-          body: SizedBox(
-            height: double.infinity,
-            child: Column(
-              children: [
-                Expanded(
-                    child: FutureBuilder(
-                        future: _loadData(),
-                        builder: (BuildContext ctx,
-                                AsyncSnapshot<List> snapshot) =>
-                            snapshot.hasData
-                                ? ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    itemCount: snapshot.data!.length,
-                                    itemBuilder:
-                                        (BuildContext context, index) => Card(
-                                      margin: const EdgeInsets.only(
-                                          left: 15,
-                                          top: 10,
-                                          right: 15,
-                                          bottom: 10),
-                                      color: lightGrey,
-                                      child: InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Abonar(
-                                                        numBoleto: snapshot
-                                                            .data![index]
-                                                                ['numBoleto']
+                  Expanded(
+                      child: FutureBuilder(
+                          future: _loadData(),
+                          builder: (BuildContext ctx,
+                              AsyncSnapshot<List> snapshot) =>
+                          snapshot.hasData
+                              ? ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder:
+                                (BuildContext context, index) => Card(
+                              margin: const EdgeInsets.only(
+                                  left: 15,
+                                  top: 10,
+                                  right: 15,
+                                  bottom: 10),
+                              color: lightGrey,
+                              child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Abonar(
+                                                numBoleto: snapshot
+                                                    .data![index]
+                                                ['numBoleto']
+                                                    .toString(),
+                                                idColaborador: widget
+                                                    .idColaborador
+                                                    .toString(),
+                                              )),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                          padding: const EdgeInsets.all(
+                                              10.0),
+                                          child: SizedBox(
+                                            width: 150.w,
+                                            child: Column(
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment
+                                                      .centerLeft,
+                                                  child: Text(
+                                                    'Boleto #' +
+                                                        snapshot.data![
+                                                        index][
+                                                        'numBoleto']
                                                             .toString(),
-                                                        idColaborador: widget
-                                                            .idColaborador
-                                                            .toString(),
-                                                      )),
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: SizedBox(
-                                                    width: 150.w,
-                                                    child: Column(
-                                                      children: [
-                                                        Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          child: Text(
-                                                            'Boleto #' +
-                                                                snapshot.data![
-                                                                        index][
-                                                                        'numBoleto']
-                                                                    .toString(),
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'Reboto',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800,
-                                                                fontSize:
-                                                                    20.sp),
-                                                          ),
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 15.w,
-                                                            ),
-                                                            Flexible(
-                                                              child: SizedBox(
-                                                                width: 700.w,
-                                                                child: Text(
-                                                                  snapshot
-                                                                      .data![
-                                                                          index]
-                                                                          [
-                                                                          'nombre']
-                                                                      .toString(),
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          11.sp),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
-                                              Flexible(
-                                                child: Container(
-                                                  child: Align(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: IconButton(
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      Abonar(
-                                                                        numBoleto: snapshot
-                                                                            .data![index]['numBoleto']
-                                                                            .toString(),
-                                                                        idColaborador: widget
-                                                                            .idColaborador
-                                                                            .toString(),
-                                                                      )),
-                                                        );
-                                                      },
-                                                      icon: Icon(Icons
-                                                          .arrow_forward_ios),
-                                                    ),
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                        'Reboto',
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w800,
+                                                        fontSize:
+                                                        20.sp),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 15.w,
+                                                    ),
+                                                    Flexible(
+                                                      child: SizedBox(
+                                                        width: 700.w,
+                                                        child: Text(
+                                                          snapshot
+                                                              .data![
+                                                          index]
+                                                          [
+                                                          'nombre']
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w600,
+                                                              fontSize:
+                                                              11.sp),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           )),
-                                    ),
-                                  )
-                                : Center(
-                                    child: CircularProgressIndicator(),
-                                  )))
-              ],
+                                      Flexible(
+                                        child: Container(
+                                          child: Align(
+                                            alignment:
+                                            Alignment.centerRight,
+                                            child: IconButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                          Abonar(
+                                                            numBoleto: snapshot
+                                                                .data![index]['numBoleto']
+                                                                .toString(),
+                                                            idColaborador: widget
+                                                                .idColaborador
+                                                                .toString(),
+                                                          )),
+                                                );
+                                              },
+                                              icon: Icon(Icons
+                                                  .arrow_forward_ios),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                          )
+                              : Center(
+                            child: CircularProgressIndicator(),
+                          )))
+                ],
+              ),
             ),
           ),
         ),

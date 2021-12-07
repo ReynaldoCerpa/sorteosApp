@@ -45,128 +45,135 @@ class _BoletosNoVendidos extends State<BoletosNoVendidos> {
   Widget build(BuildContext context) {
     const lightGrey = Color(0xFFD2D2D2);
     const lighterGray = Color(0xFFD2D2D2);
-    return ScreenUtilInit(
-      builder: () => MaterialApp(
-        home: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              toolbarHeight: 60.h,
-              backgroundColor: Colors.amber,
-              title: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.arrow_back_ios),
-                      color: Colors.black,
-                    ),
-                    Row(
-                      children: [
-
-                        Container(
-                          width: 90.w,
-                          child: Image.asset("assets/main-logo.png"),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          "Boletos no Vendidos",
-                          style: TextStyle(
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
-                        ),
-                        SizedBox(width: 15.w),
-                      ],
-                    ),
-                  ]
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ScreenUtilInit(
+        builder: () => MaterialApp(
+          home: Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                toolbarHeight: 60.h,
+                backgroundColor: Colors.amber,
+                title: Container(
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back_ios),
+                    color: Colors.black,
+                  ),
+                ),
+                actions: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Container(
+                        width: 90.w,
+                        child: Image.asset("assets/main-logo.png"),
+                      ),
+                      SizedBox(
+                        width: 30.w,
+                      ),
+                      Text(
+                        "Boletos No Vendidos",
+                        style: TextStyle(
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                      SizedBox(width: 15.w),
+                    ],
+                  )
+                ],
               ),
-            ),
-            body: FutureBuilder(
-                future: _loadData(),
-                builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
-                snapshot.hasData
-                    ? ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder:
-                      (BuildContext context, index) =>
-                      Card(
-                        margin: const EdgeInsets.only(
-                            left: 15,
-                            top: 10,
-                            right: 15,
-                            bottom: 10),
-                        color: lightGrey,
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => CompradorExistente(numBoleto: snapshot
-                                    .data![
-                                index]
-                                [
-                                'numBoleto']
-                                    .toString(), idColaborador: widget.idColaborador,)),
-                              );
-                            },
-                            child: Row(
-                              children: [
-                                Padding(
-                                    padding:
-                                    const EdgeInsets.all(
-                                        10.0),
-                                    child: SizedBox(
-                                      width: 250
-                                          .w,
-                                      child: Column(
-                                        children: [
-                                          Align(
-                                            alignment: Alignment
-                                                .centerLeft,
-                                            child: Text(
-                                              "Boleto #"+snapshot
-                                                  .data![
-                                              index]
-                                              [
-                                              'numBoleto']
-                                                  .toString() ,
-                                              style: TextStyle(
-                                                  fontFamily:
-                                                  'Reboto',
-                                                  fontWeight:
-                                                  FontWeight
-                                                      .w800,
-                                                  fontSize:
-                                                  15.sp),
+              body: FutureBuilder(
+                  future: _loadData(),
+                  builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
+                  snapshot.hasData
+                      ? ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder:
+                        (BuildContext context, index) =>
+                        Card(
+                          margin: const EdgeInsets.only(
+                              left: 15,
+                              top: 10,
+                              right: 15,
+                              bottom: 10),
+                          color: lightGrey,
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => CompradorExistente(numBoleto: snapshot
+                                      .data![
+                                  index]
+                                  [
+                                  'numBoleto']
+                                      .toString(), idColaborador: widget.idColaborador,)),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Padding(
+                                      padding:
+                                      const EdgeInsets.all(
+                                          10.0),
+                                      child: SizedBox(
+                                        width: 250
+                                            .w,
+                                        child: Column(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment
+                                                  .centerLeft,
+                                              child: Text(
+                                                "Boleto #"+snapshot
+                                                    .data![
+                                                index]
+                                                [
+                                                'numBoleto']
+                                                    .toString() ,
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                    'Reboto',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w800,
+                                                    fontSize:
+                                                    20.sp),
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-                                Flexible(
-                                  child: Container(
-                                    child: Align(
-                                      alignment: Alignment
-                                          .centerRight,
-                                      child: IconButton(
-                                        onPressed: () {
+                                          ],
+                                        ),
+                                      )),
+                                  Flexible(
+                                    child: Container(
+                                      child: Align(
+                                        alignment: Alignment
+                                            .centerRight,
+                                        child: IconButton(
+                                          onPressed: () {
 
-                                        },
-                                        icon: Icon(Icons
-                                            .arrow_forward_ios),
+                                          },
+                                          icon: Icon(Icons
+                                              .arrow_forward_ios),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )),
-                      ),
-                )
-                    : Center(
-                  child: CircularProgressIndicator(),
-                ))),
+                                ],
+                              )),
+                        ),
+                  )
+                      : Center(
+                    child: CircularProgressIndicator(),
+                  ))),
+        ),
       ),
     );
   }

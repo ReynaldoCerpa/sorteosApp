@@ -28,146 +28,154 @@ class _CambiarContrasena extends State<CambiarContrasena> {
   @override
   Widget build(BuildContext context) {
     const lightGrey = Color(0xFFD2D2D2);
-
-    return ScreenUtilInit(
-      builder: () => MaterialApp(
-        home: Scaffold(
-          resizeToAvoidBottomInset: true,
-          appBar: AppBar(
-            toolbarHeight: 60.h,
-            backgroundColor: Colors.amber,
-            title: Row(children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back_ios),
-                color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ScreenUtilInit(
+        builder: () => MaterialApp(
+          home: Scaffold(
+            resizeToAvoidBottomInset: true,
+            appBar: AppBar(
+              toolbarHeight: 60.h,
+              backgroundColor: Colors.amber,
+              title: Container(
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back_ios),
+                  color: Colors.black,
+                ),
               ),
-              Row(
-                children: [
-                  Container(
-                    width: 90.w,
-                    child: Image.asset("assets/main-logo.png"),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    "Cambiar Contraseña",
-                    style: TextStyle(
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                ],
-              ),
-            ]),
-          ),
-          body: SafeArea(
-              child:  SingleChildScrollView(
-                child:
-                Column(
-                  children: <Widget>[
-
-                    Padding(
-                      padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
-                      child: Text(
-                        "INGRESA TUS DATOS",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25.sp),
-                      ),
+              actions: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 10.w,
                     ),
-                    TextInput("Contraseña Nueva", nueva, true),
-                    TextInput("Confirmar Contraseña", nueva2, true),
-                    TextInput("Contraseña Anterior", vieja, true),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20, bottom: 10.0),
-                      child: SizedBox(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              onPressed: (){
-                                Navigator.pop(context);
-                              },
-                              style: ButtonStyle(
-                                fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
-                                shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50.sp)
-                                    )
-                                ),
-                                foregroundColor: MaterialStateProperty.all(Colors.black),
-                                backgroundColor: MaterialStateProperty.all(lightGrey),
-                              ),
-                              child: Text(
-                                "Cancelar",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.sp),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
+                    Container(
+                      width: 90.w,
+                      child: Image.asset("assets/main-logo.png"),
+                    ),
+                    SizedBox(
+                      width: 40.w,
+                    ),
+                    Text(
+                      "Cambiar Contraseña",
+                      style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    ),
+                    SizedBox(width: 15.w),
+                  ],
+                )
+              ],
+            ),
+            body: SafeArea(
+                child:  SingleChildScrollView(
+                  child:
+                  Column(
+                    children: <Widget>[
 
-                                bool res = await registerUser(nueva.text, nueva2.text, vieja.text, widget.idColaborador);
-
-                                if(res == true){
-                                  print("cuenta valida");
-
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Login()),
-
-                                  );
-                                  showAlertDialog(context);
-
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context){
-                                        return AlertDialog(
-                                          title: Container(
-                                            child: Text("No se pudo cambiar la contraseña",
-                                              textAlign: TextAlign.center,),
-                                          ),
-                                          actions: [],
-                                        );
-                                      });
-                                }
-                              },
-                              style: ButtonStyle(
-                                fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
-
-                                shape: MaterialStateProperty.all(
-
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50.sp)
-                                    )
-                                ),
-                                foregroundColor: MaterialStateProperty.all(Colors.black),
-                                backgroundColor: MaterialStateProperty.all(Colors.amber),
-                              ),
-                              child: Text(
-                                "Registrarse",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.sp),
-                              ),
-                            ),
-                          ],
+                      Padding(
+                        padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
+                        child: Text(
+                          "INGRESA TUS DATOS",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25.sp),
                         ),
                       ),
-                    ),
-                  ],
-                ) ,
-              )),
+                      TextInput("Contraseña Nueva", nueva, true),
+                      TextInput("Confirmar Contraseña", nueva2, true),
+                      TextInput("Contraseña Anterior", vieja, true),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20, bottom: 10.0),
+                        child: SizedBox(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
+                                style: ButtonStyle(
+                                  fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50.sp)
+                                      )
+                                  ),
+                                  foregroundColor: MaterialStateProperty.all(Colors.black),
+                                  backgroundColor: MaterialStateProperty.all(lightGrey),
+                                ),
+                                child: Text(
+                                  "Cancelar",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.sp),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20.w,
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+
+                                  bool res = await registerUser(nueva.text, nueva2.text, vieja.text, widget.idColaborador);
+
+                                  if(res == true){
+                                    print("cuenta valida");
+
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => Login()),
+
+                                    );
+                                    showAlertDialog(context);
+
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context){
+                                          return AlertDialog(
+                                            title: Container(
+                                              child: Text("No se pudo cambiar la contraseña",
+                                                textAlign: TextAlign.center,),
+                                            ),
+                                            actions: [],
+                                          );
+                                        });
+                                  }
+                                },
+                                style: ButtonStyle(
+                                  fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
+
+                                  shape: MaterialStateProperty.all(
+
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50.sp)
+                                      )
+                                  ),
+                                  foregroundColor: MaterialStateProperty.all(Colors.black),
+                                  backgroundColor: MaterialStateProperty.all(Colors.amber),
+                                ),
+                                child: Text(
+                                  "Cambiar",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.sp),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ) ,
+                )),
+          ),
         ),
       ),
     );

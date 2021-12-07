@@ -37,155 +37,163 @@ class _RegisterComprador extends State<RegisterComprador> {
   @override
   Widget build(BuildContext context) {
     const lightGrey = Color(0xFFD2D2D2);
-
-    return ScreenUtilInit(
-      builder: () => MaterialApp(
-        home: Scaffold(
-          resizeToAvoidBottomInset: true,
-          appBar: AppBar(
-            toolbarHeight: 60.h,
-            backgroundColor: Colors.amber,
-            title: Row(children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back_ios),
-                color: Colors.black,
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 90.w,
-                    child: Image.asset("assets/main-logo.png"),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    "Registro Comprador",
-                    style: TextStyle(
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                ],
-              ),
-            ]),
-          ),
-          body: SafeArea(
-            child:  SingleChildScrollView(
-              child:
-              Column(
-                children: <Widget>[
-
-                Padding(
-                  padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
-                  child: Text(
-                    "INGRESA TUS DATOS",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 25.sp),
-                  ),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ScreenUtilInit(
+        builder: () => MaterialApp(
+          home: Scaffold(
+            resizeToAvoidBottomInset: true,
+            appBar: AppBar(
+              toolbarHeight: 60.h,
+              backgroundColor: Colors.amber,
+              title: Container(
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back_ios),
+                  color: Colors.black,
                 ),
-                TextInput("Nombre", nombre, false),
-                TextInput("Apellido Paterno", apellido1, false),
-                TextInput("Apellido Materno", apellido2, false),
-                TextInput("Calle", calle, false),
-                TextInput("Número interior", numint, false),
-                TextInput("Número Exterior", numext, false),
-                TextInput("Colonia", colonia, false),
-                TextInput("Codigo Postal", codigoPostal, false),
-                TextInput("Ciudad", ciudad, false),
-                TextInput("Correo", correo, false),
-                TextInput("Telefono (solo número)", telefono, false),
-
-                Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 10.0),
-                  child: SizedBox(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: (){
-                            Navigator.pop(context);
-                          },
-                          style: ButtonStyle(
-                            fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50.sp)
-                                )
-                            ),
-                            foregroundColor: MaterialStateProperty.all(Colors.black),
-                            backgroundColor: MaterialStateProperty.all(lightGrey),
-                          ),
-                          child: Text(
-                            "Cancelar",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18.sp),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-
-                            bool res = await registerUser(nombre.text, apellido1.text, apellido2.text, calle.text, numint.text, numext.text, colonia.text, codigoPostal.text, ciudad.text, correo.text, telefono.text, widget.numBoleto);
-
-                            if(res == true){
-                              print("cuenta valida");
-
-                              showAlertDialog(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => Home(idColaborador:widget.idColaborador,)),
-                              );
-
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context){
-                                    return AlertDialog(
-                                      title: Container(
-                                        child: Text("No se pudo completar el registro",
-                                          textAlign: TextAlign.center,),
-                                      ),
-                                      actions: [],
-                                    );
-                                  });
-                            }
-                          },
-                          style: ButtonStyle(
-                            fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
-
-                            shape: MaterialStateProperty.all(
-
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50.sp)
-                                )
-                            ),
-                            foregroundColor: MaterialStateProperty.all(Colors.black),
-                            backgroundColor: MaterialStateProperty.all(Colors.amber),
-                          ),
-                          child: Text(
-                            "Guardar",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18.sp),
-                          ),
-                        ),
-                      ],
+              ),
+              actions: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 10.w,
                     ),
-                  ),
-                ),
+                    Container(
+                      width: 90.w,
+                      child: Image.asset("assets/main-logo.png"),
+                    ),
+                    SizedBox(
+                      width: 50.w,
+                    ),
+                    Text(
+                      "Registro Comprador",
+                      style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    ),
+                    SizedBox(width: 15.w),
+                  ],
+                )
               ],
-            ) ,
-            )),
+            ),
+            body: SafeArea(
+                child:  SingleChildScrollView(
+                  child:
+                  Column(
+                    children: <Widget>[
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
+                        child: Text(
+                          "INGRESA TUS DATOS",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25.sp),
+                        ),
+                      ),
+                      TextInput("Nombre", nombre, false),
+                      TextInput("Apellido Paterno", apellido1, false),
+                      TextInput("Apellido Materno", apellido2, false),
+                      TextInput("Calle", calle, false),
+                      TextInput("Número interior", numint, false),
+                      TextInput("Número Exterior", numext, false),
+                      TextInput("Colonia", colonia, false),
+                      TextInput("Codigo Postal", codigoPostal, false),
+                      TextInput("Ciudad", ciudad, false),
+                      TextInput("Correo", correo, false),
+                      TextInput("Telefono (solo número)", telefono, false),
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 20, bottom: 10.0),
+                        child: SizedBox(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
+                                style: ButtonStyle(
+                                  fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50.sp)
+                                      )
+                                  ),
+                                  foregroundColor: MaterialStateProperty.all(Colors.black),
+                                  backgroundColor: MaterialStateProperty.all(lightGrey),
+                                ),
+                                child: Text(
+                                  "Cancelar",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.sp),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20.w,
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+
+                                  bool res = await registerUser(nombre.text, apellido1.text, apellido2.text, calle.text, numint.text, numext.text, colonia.text, codigoPostal.text, ciudad.text, correo.text, telefono.text, widget.numBoleto);
+
+                                  if(res == true){
+                                    print("cuenta valida");
+
+                                    showAlertDialog(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => Home(idColaborador:widget.idColaborador,)),
+                                    );
+
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context){
+                                          return AlertDialog(
+                                            title: Container(
+                                              child: Text("No se pudo completar el registro",
+                                                textAlign: TextAlign.center,),
+                                            ),
+                                            actions: [],
+                                          );
+                                        });
+                                  }
+                                },
+                                style: ButtonStyle(
+                                  fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
+
+                                  shape: MaterialStateProperty.all(
+
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50.sp)
+                                      )
+                                  ),
+                                  foregroundColor: MaterialStateProperty.all(Colors.black),
+                                  backgroundColor: MaterialStateProperty.all(Colors.amber),
+                                ),
+                                child: Text(
+                                  "Guardar",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.sp),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ) ,
+                )),
           ),
         ),
+      ),
     );
   }
 }

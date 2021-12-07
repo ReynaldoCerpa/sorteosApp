@@ -50,220 +50,229 @@ class _InforamcionCompradores extends State<InformacionCompradores> {
     const lightGrey = Color(0xFFD2D2D2);
     const yellow = Color(0xFFF1D100);
     const lightyellow = Color(0xFFF1D100);
-    return ScreenUtilInit(
-      builder: () => MaterialApp(
-        home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            toolbarHeight: 60.h,
-            backgroundColor: Colors.amber,
-            title: Row(children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back_ios),
-                color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ScreenUtilInit(
+        builder: () => MaterialApp(
+          home: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              toolbarHeight: 60.h,
+              backgroundColor: Colors.amber,
+              title: Container(
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back_ios),
+                  color: Colors.black,
+                ),
               ),
-              Row(
-                children: [
-                  Container(
-                    width: 90.w,
-                    child: Image.asset("assets/main-logo.png"),
-                  ),
-                  SizedBox(
-                    width: 30.w,
-                  ),
-                  Text(
-                    "Boleto #" + widget.numBoleto,
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                ],
-              ),
-            ]),
-
-          ),
-          body: FutureBuilder(
-              future: _loadData("0"),
-              builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
-              snapshot.hasData
-                  ? ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, index) =>
+              actions: [
+                Row(
+                  children: [
                     SizedBox(
-                      child: Column(children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 25.h,
-                            ),
-                            Text(
-                              "Verificar Datos",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black),
-                            ),
-                            SizedBox(
-                              height: 25.h,
-                            ),
-                            Container(
-                              height: 50.h,
-                              width: double.maxFinite,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                    "Información del Vendedor",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black)),
-                              ),
-                            ),
+                      width: 10.w,
+                    ),
+                    Container(
+                      width: 90.w,
+                      child: Image.asset("assets/main-logo.png"),
+                    ),
+                    SizedBox(
+                      width: 90.w,
+                    ),
+                    Text(
+                      "Boleto #" + widget.numBoleto,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    ),
+                    SizedBox(width: 15.w),
+                  ],
+                )
+              ],
 
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: 40,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    NombreText(context, "Nombre:"),
-                                    DatosText(
-                                        context,
-                                        snapshot.data![index]
-                                        ['nombre']
-                                            .toString()),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    NombreText(
-                                        context, "Dirección:"),
-                                    DatosText(
-                                        context,
-                                        snapshot.data![index]
-                                        ['direccion']
-                                            .toString()),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    NombreText(context, "Correo:"),
-                                    DatosText(
-                                        context,
-                                        snapshot.data![index]
-                                        ['correo']
-                                            .toString()),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    NombreText(
-                                        context, "Teléfono:"),
-                                    DatosText(
-                                        context,
-                                        snapshot.data![index]
-                                        ['telefono']
-                                            .toString()),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 50.h,),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
+            ),
+            body: FutureBuilder(
+                future: _loadData("0"),
+                builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
+                snapshot.hasData
+                    ? ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, index) =>
+                      SizedBox(
+                          child: Column(children: [
+                            Column(
                               children: [
-                                ElevatedButton(
-                                  onPressed: (){
-                                    Navigator.pop(context);
-                                  },
-                                  style: ButtonStyle(
-                                    fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
-                                    shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(50.sp)
-                                        )
-                                    ),
-                                    foregroundColor: MaterialStateProperty.all(Colors.black),
-                                    backgroundColor: MaterialStateProperty.all(lightGrey),
-                                  ),
-                                  child: Text(
-                                    "Cancelar",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18.sp),
-                                  ),
+                                SizedBox(
+                                  height: 25.h,
+                                ),
+                                Text(
+                                  "Verificar Datos",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black),
                                 ),
                                 SizedBox(
-                                  width: 20.w,
+                                  height: 25.h,
                                 ),
-                                ElevatedButton(
-                                  onPressed: () async {
+                                Container(
+                                  height: 50.h,
+                                  width: double.maxFinite,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                        "Información del Vendedor",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black)),
+                                  ),
+                                ),
 
-                                    bool res = await registerUser(widget.idComprador, widget.numBoleto);
-
-                                    if(res == true){
-                                      print("cuenta valida");
-
-                                      showAlertDialog(context);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => Home(idColaborador:widget.idColaborador,)),
-                                      );
-
-                                    } else {
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context){
-                                            return AlertDialog(
-                                              title: Container(
-                                                child: Text("No se pudo completar el registro",
-                                                  textAlign: TextAlign.center,),
-                                              ),
-                                              actions: [],
-                                            );
-                                          });
-                                    }
-                                  },
-                                  style: ButtonStyle(
-                                    fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
-
-                                    shape: MaterialStateProperty.all(
-
-                                        RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(50.sp)
-                                        )
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 40,
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        NombreText(context, "Nombre:"),
+                                        DatosText(
+                                            context,
+                                            snapshot.data![index]
+                                            ['nombre']
+                                                .toString()),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        NombreText(
+                                            context, "Dirección:"),
+                                        DatosText(
+                                            context,
+                                            snapshot.data![index]
+                                            ['direccion']
+                                                .toString()),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        NombreText(context, "Correo:"),
+                                        DatosText(
+                                            context,
+                                            snapshot.data![index]
+                                            ['correo']
+                                                .toString()),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        NombreText(
+                                            context, "Teléfono:"),
+                                        DatosText(
+                                            context,
+                                            snapshot.data![index]
+                                            ['telefono']
+                                                .toString()),
+                                      ],
                                     ),
-                                    foregroundColor: MaterialStateProperty.all(Colors.black),
-                                    backgroundColor: MaterialStateProperty.all(Colors.amber),
                                   ),
-                                  child: Text(
-                                    "Guardar",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18.sp),
-                                  ),
+                                ),
+                                SizedBox(height: 50.h,),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: (){
+                                        Navigator.pop(context);
+                                      },
+                                      style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
+                                        shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(50.sp)
+                                            )
+                                        ),
+                                        foregroundColor: MaterialStateProperty.all(Colors.black),
+                                        backgroundColor: MaterialStateProperty.all(lightGrey),
+                                      ),
+                                      child: Text(
+                                        "Cancelar",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18.sp),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20.w,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () async {
+
+                                        bool res = await registerUser(widget.idComprador, widget.numBoleto);
+
+                                        if(res == true){
+                                          print("cuenta valida");
+
+                                          showAlertDialog(context);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => Home(idColaborador:widget.idColaborador,)),
+                                          );
+
+                                        } else {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context){
+                                                return AlertDialog(
+                                                  title: Container(
+                                                    child: Text("No se pudo completar el registro",
+                                                      textAlign: TextAlign.center,),
+                                                  ),
+                                                  actions: [],
+                                                );
+                                              });
+                                        }
+                                      },
+                                      style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(Size(140.w, 40.h)),
+
+                                        shape: MaterialStateProperty.all(
+
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(50.sp)
+                                            )
+                                        ),
+                                        foregroundColor: MaterialStateProperty.all(Colors.black),
+                                        backgroundColor: MaterialStateProperty.all(Colors.amber),
+                                      ),
+                                      child: Text(
+                                        "Guardar",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18.sp),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ])
-                    ),
-              )
-                  : Center(
-                child: CircularProgressIndicator(),
-              )),
+                          ])
+                      ),
+                )
+                    : Center(
+                  child: CircularProgressIndicator(),
+                )),
+          ),
         ),
       ),
     );

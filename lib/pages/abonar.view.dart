@@ -73,11 +73,7 @@ class _Abonar extends State<Abonar> {
     const yellow = Color(0xFFF1D100);
     const lightyellow = Color(0xFFF1D100);
     return WillPopScope(
-      onWillPop: () async {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('The System Back Button is Deactivated')));
-        return false;
-      },
+      onWillPop: () async => false,
       child: ScreenUtilInit(
         builder: () => MaterialApp(
           home: Scaffold(
@@ -140,304 +136,304 @@ class _Abonar extends State<Abonar> {
                   FutureBuilder(
                       future: _loadTotal(),
                       builder: (BuildContext ctx,
-                              AsyncSnapshot<List> snapshot) =>
-                          snapshot.hasData
-                              ? ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (BuildContext context, index) =>
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 50.w,
-                                              top: 30.h,
-                                              right: 50.w,
-                                              bottom: 30.h),
-                                          child: Container(
-                                              width: 100,
-                                              height: 100,
-                                              decoration: BoxDecoration(
-                                                color: Colors.amber,
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0),
-                                                ),
-                                              ),
-                                              child: (snapshot.data![index]
-                                                              ['saldoPendiente']
-                                                          .toString() !=
-                                                      "0.0")
-                                                  ? Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text("Saldo Pendiente",
-                                                            style: TextStyle(
-                                                                fontSize: 30.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .black)),
-                                                        SizedBox(
-                                                          height: 5.h,
-                                                        ),
-                                                        Text(
-                                                          "\$ " +
-                                                              snapshot
-                                                                  .data![index][
-                                                                      'saldoPendiente']
-                                                                  .toString(),
-                                                          style: TextStyle(
-                                                              fontSize: 30.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  : Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text("PAGADO",
-                                                            style: TextStyle(
-                                                                fontSize: 30.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .black)),
-                                                      ],
-                                                    ))),
-                                )
-                              : Center(
-                                  child: CircularProgressIndicator(),
-                                )),
+                          AsyncSnapshot<List> snapshot) =>
+                      snapshot.hasData
+                          ? ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, index) =>
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 50.w,
+                                    top: 30.h,
+                                    right: 50.w,
+                                    bottom: 30.h),
+                                child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      color: Colors.amber,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    child: (snapshot.data![index]
+                                    ['saldoPendiente']
+                                        .toString() !=
+                                        "0.0")
+                                        ? Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text("Saldo Pendiente",
+                                            style: TextStyle(
+                                                fontSize: 30.sp,
+                                                fontWeight:
+                                                FontWeight
+                                                    .w700,
+                                                color: Colors
+                                                    .black)),
+                                        SizedBox(
+                                          height: 5.h,
+                                        ),
+                                        Text(
+                                          "\$ " +
+                                              snapshot
+                                                  .data![index][
+                                              'saldoPendiente']
+                                                  .toString(),
+                                          style: TextStyle(
+                                              fontSize: 30.sp,
+                                              fontWeight:
+                                              FontWeight
+                                                  .w700,
+                                              color:
+                                              Colors.black),
+                                        ),
+                                      ],
+                                    )
+                                        : Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text("PAGADO",
+                                            style: TextStyle(
+                                                fontSize: 30.sp,
+                                                fontWeight:
+                                                FontWeight
+                                                    .w700,
+                                                color: Colors
+                                                    .black)),
+                                      ],
+                                    ))),
+                      )
+                          : Center(
+                        child: CircularProgressIndicator(),
+                      )),
                   FutureBuilder(
                       future: _loadData("0"),
                       builder: (BuildContext ctx,
-                              AsyncSnapshot<List> snapshot) =>
-                          snapshot.hasData
-                              ? ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (BuildContext context, index) =>
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 20.w,
-                                              top: 10.h,
-                                              right: 20.w,
-                                              bottom: 10.h),
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            decoration: BoxDecoration(
-                                              color: Colors.amber,
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0),
+                          AsyncSnapshot<List> snapshot) =>
+                      snapshot.hasData
+                          ? ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, index) =>
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: 20.w,
+                                    top: 10.h,
+                                    right: 20.w,
+                                    bottom: 10.h),
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10.0),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10.w),
+                                            child: Text(
+                                              "Pago " +
+                                                  (index + 1)
+                                                      .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 20.sp,
+                                                  fontWeight:
+                                                  FontWeight.w700,
+                                                  color:
+                                                  Colors.black),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding:
+                                              EdgeInsets.only(
+                                                  left: 20.w),
+                                              child: Text(
+                                                snapshot.data![index]
+                                                ['fecha']
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w400,
+                                                    color:
+                                                    Colors.black),
                                               ),
                                             ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 10.w),
-                                                      child: Text(
-                                                        "Pago " +
-                                                            (index + 1)
-                                                                .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 20.sp,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            color:
-                                                                Colors.black),
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 20.w),
-                                                        child: Text(
-                                                          snapshot.data![index]
-                                                                  ['fecha']
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              fontSize: 15.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 5.h,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 30.w),
-                                                  child: Text(
-                                                    "\$ " +
-                                                        snapshot.data![index]
-                                                                ['cantidad']
-                                                            .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 20.sp,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.black),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )),
-                                )
-                              : Center(
-                                  child: CircularProgressIndicator(),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 30.w),
+                                        child: Text(
+                                          "\$ " +
+                                              snapshot.data![index]
+                                              ['cantidad']
+                                                  .toString(),
+                                          style: TextStyle(
+                                              fontSize: 20.sp,
+                                              fontWeight:
+                                              FontWeight.w700,
+                                              color: Colors.black),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 )),
+                      )
+                          : Center(
+                        child: CircularProgressIndicator(),
+                      )),
                   FutureBuilder(
                       future: _loadTotal(),
                       builder:
                           (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
-                              snapshot.hasData
-                                  ? ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: snapshot.data!.length,
-                                      itemBuilder:
-                                          (BuildContext context, index) =>
-                                              Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 50.w,
-                                            top: 10.h,
-                                            right: 50.w,
-                                            bottom: 30.h),
-                                        child:
-                                            (snapshot.data![index]
-                                                            ['saldoPendiente']
-                                                        .toString() !=
-                                                    "0.0")
-                                                ? Padding(
-                                                    padding: EdgeInsets.only(
-                                                        bottom: 20.h,
-                                                        top: 10.h),
-                                                    child: ElevatedButton(
-                                                      onPressed: () {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (BuildContext
-                                                                    context) {
-                                                              return AlertDialog(
-                                                                title:
-                                                                    Container(
-                                                                  child: Column(
-                                                                    children: [
-                                                                      Text(
-                                                                        "Ingrese Cantidad:",
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                      ),
-                                                                      TextInput(
-                                                                          "Cantidad",
-                                                                          cantidad,
-                                                                          false),
-                                                                      ElevatedButton(
-                                                                        style:
-                                                                            ButtonStyle(
-                                                                          fixedSize: MaterialStateProperty.all(Size(
-                                                                              140.w,
-                                                                              40.h)),
-                                                                          shape:
-                                                                              MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.sp))),
-                                                                          foregroundColor:
-                                                                              MaterialStateProperty.all(Colors.black),
-                                                                          backgroundColor:
-                                                                              MaterialStateProperty.all(Colors.amber),
-                                                                        ),
-                                                                        onPressed:
-                                                                            () async {
-                                                                          bool res = await registerUser(
-                                                                              widget.idColaborador,
-                                                                              widget.numBoleto,
-                                                                              cantidad.text);
-
-                                                                          if (res ==
-                                                                              true) {
-                                                                            print("cuenta valida");
-
-                                                                            setState(() {});
-                                                                            showAlertDialog(context);
-                                                                          } else if (res ==
-                                                                              false) {
-                                                                            showNegativeAlertDialog(context);
-                                                                          }
-                                                                        },
-                                                                        child:
-                                                                            Text(
-                                                                          "Abonar",
-                                                                          style: TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 18.sp),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                actions: [],
-                                                              );
-                                                            });
-                                                      },
-                                                      style: ButtonStyle(
-                                                        fixedSize:
-                                                            MaterialStateProperty
-                                                                .all(Size(140.w,
-                                                                    40.h)),
-                                                        shape: MaterialStateProperty.all(
-                                                            RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            50.sp))),
-                                                        foregroundColor:
-                                                            MaterialStateProperty
-                                                                .all(Colors
-                                                                    .black),
-                                                        backgroundColor:
-                                                            MaterialStateProperty
-                                                                .all(Colors
-                                                                    .amber),
-                                                      ),
-                                                      child: Text(
-                                                        "Abonar",
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 18.sp),
-                                                      ),
+                      snapshot.hasData
+                          ? ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder:
+                            (BuildContext context, index) =>
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 50.w,
+                                  top: 10.h,
+                                  right: 50.w,
+                                  bottom: 30.h),
+                              child:
+                              (snapshot.data![index]
+                              ['saldoPendiente']
+                                  .toString() !=
+                                  "0.0")
+                                  ? Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: 20.h,
+                                    top: 10.h),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder:
+                                            (BuildContext
+                                        context) {
+                                          return AlertDialog(
+                                            title:
+                                            Container(
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    "Ingrese Cantidad:",
+                                                    textAlign:
+                                                    TextAlign.center,
+                                                  ),
+                                                  TextInput(
+                                                      "Cantidad",
+                                                      cantidad,
+                                                      false),
+                                                  ElevatedButton(
+                                                    style:
+                                                    ButtonStyle(
+                                                      fixedSize: MaterialStateProperty.all(Size(
+                                                          140.w,
+                                                          40.h)),
+                                                      shape:
+                                                      MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.sp))),
+                                                      foregroundColor:
+                                                      MaterialStateProperty.all(Colors.black),
+                                                      backgroundColor:
+                                                      MaterialStateProperty.all(Colors.amber),
                                                     ),
-                                                  )
-                                                : Container(),
-                                      ),
-                                    )
-                                  : Center(
-                                      child: CircularProgressIndicator(),
-                                    )),
+                                                    onPressed:
+                                                        () async {
+                                                      bool res = await registerUser(
+                                                          widget.idColaborador,
+                                                          widget.numBoleto,
+                                                          cantidad.text);
+
+                                                      if (res ==
+                                                          true) {
+                                                        print("cuenta valida");
+
+                                                        setState(() {});
+                                                        showAlertDialog(context);
+                                                      } else if (res ==
+                                                          false) {
+                                                        showNegativeAlertDialog(context);
+                                                      }
+                                                    },
+                                                    child:
+                                                    Text(
+                                                      "Abonar",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 18.sp),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: [],
+                                          );
+                                        });
+                                  },
+                                  style: ButtonStyle(
+                                    fixedSize:
+                                    MaterialStateProperty
+                                        .all(Size(140.w,
+                                        40.h)),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius
+                                                .circular(
+                                                50.sp))),
+                                    foregroundColor:
+                                    MaterialStateProperty
+                                        .all(Colors
+                                        .black),
+                                    backgroundColor:
+                                    MaterialStateProperty
+                                        .all(Colors
+                                        .amber),
+                                  ),
+                                  child: Text(
+                                    "Abonar",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18.sp),
+                                  ),
+                                ),
+                              )
+                                  : Container(),
+                            ),
+                      )
+                          : Center(
+                        child: CircularProgressIndicator(),
+                      )),
                 ],
               ),
             ),
@@ -447,6 +443,8 @@ class _Abonar extends State<Abonar> {
     );
   }
 }
+
+
 
 Widget DatosText(BuildContext context, String text) {
   return Text(text,

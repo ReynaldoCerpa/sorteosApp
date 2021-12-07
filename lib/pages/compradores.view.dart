@@ -49,134 +49,142 @@ class _Comprador extends State<Compradores> {
   Widget build(BuildContext context) {
     const lightGrey = Color(0xFFD2D2D2);
     const lighterGray = Color(0xFFD2D2D2);
-    return ScreenUtilInit(
-      builder: () => MaterialApp(
-        home: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              toolbarHeight: 60.h,
-              backgroundColor: Colors.amber,
-              title: Row(children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.arrow_back_ios),
-                  color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ScreenUtilInit(
+        builder: () => MaterialApp(
+          home: Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                toolbarHeight: 60.h,
+                backgroundColor: Colors.amber,
+                title: Container(
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back_ios),
+                    color: Colors.black,
+                  ),
                 ),
-                Row(
-                  children: [
-                    Container(
-                      width: 90.w,
-                      child: Image.asset("assets/main-logo.png"),
-                    ),
-                    SizedBox(
-                      width: 50.w,
-                    ),
-                    Text(
-                      "Compradores",
-                      style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black),
-                    ),
-                    SizedBox(width: 15.w),
-                  ],
-                ),
-              ]),
-            ),
-            body: FutureBuilder(
-                future: _loadData(),
-                builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
-                    snapshot.hasData
-                        ? ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (BuildContext context, index) => Card(
-                              margin: const EdgeInsets.only(
-                                  left: 15, top: 10, right: 15, bottom: 10),
-                              color: lightGrey,
-                              child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              InformacionCompradores(
-                                                  numBoleto: widget
-                                                      .numBoleto,
-                                                  idColaborador: widget
-                                                      .idColaborador,
-                                                  idComprador: snapshot
-                                                      .data![index][
-                                                  'idComprador']
-                                                      .toString())),
-                                    );
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: SizedBox(
-                                            width: 250.w,
-                                            child: Column(
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    snapshot.data![index]
-                                                                ['nombre']
-                                                            .toString() +
-                                                        "  #" +
-                                                        snapshot.data![index]
-                                                                ['idComprador']
-                                                            .toString(),
-                                                    style: TextStyle(
-                                                        fontFamily: 'Reboto',
-                                                        fontWeight:
-                                                            FontWeight.w800,
-                                                        fontSize: 15.sp),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )),
-                                      Flexible(
-                                        child: Container(
-                                          child: Align(
-                                            alignment: Alignment.centerRight,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          InformacionCompradores(
-                                                              numBoleto: widget
-                                                                  .numBoleto,
-                                                              idColaborador: widget
-                                                                  .idColaborador,
-                                                              idComprador: snapshot
-                                                                  .data![index][
-                                                                      'idComprador']
-                                                                  .toString())),
-                                                );
-                                              },
-                                              icon:
-                                                  Icon(Icons.arrow_forward_ios),
-                                            ),
+                actions: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Container(
+                        width: 90.w,
+                        child: Image.asset("assets/main-logo.png"),
+                      ),
+                      SizedBox(
+                        width: 60.w,
+                      ),
+                      Text(
+                        "Compradores",
+                        style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                      SizedBox(width: 15.w),
+                    ],
+                  )
+                ],
+              ),
+              body: FutureBuilder(
+                  future: _loadData(),
+                  builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
+                  snapshot.hasData
+                      ? ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, index) => Card(
+                      margin: const EdgeInsets.only(
+                          left: 15, top: 10, right: 15, bottom: 10),
+                      color: lightGrey,
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      InformacionCompradores(
+                                          numBoleto: widget
+                                              .numBoleto,
+                                          idColaborador: widget
+                                              .idColaborador,
+                                          idComprador: snapshot
+                                              .data![index][
+                                          'idComprador']
+                                              .toString())),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: SizedBox(
+                                    width: 250.w,
+                                    child: Column(
+                                      children: [
+                                        Align(
+                                          alignment:
+                                          Alignment.centerLeft,
+                                          child: Text(
+                                            snapshot.data![index]
+                                            ['nombre']
+                                                .toString() +
+                                                "  #" +
+                                                snapshot.data![index]
+                                                ['idComprador']
+                                                    .toString(),
+                                            style: TextStyle(
+                                                fontFamily: 'Reboto',
+                                                fontWeight:
+                                                FontWeight.w800,
+                                                fontSize: 15.sp),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   )),
-                            ),
-                          )
-                        : Center(
-                            child: CircularProgressIndicator(),
-                          ))),
+                              Flexible(
+                                child: Container(
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  InformacionCompradores(
+                                                      numBoleto: widget
+                                                          .numBoleto,
+                                                      idColaborador: widget
+                                                          .idColaborador,
+                                                      idComprador: snapshot
+                                                          .data![index][
+                                                      'idComprador']
+                                                          .toString())),
+                                        );
+                                      },
+                                      icon:
+                                      Icon(Icons.arrow_forward_ios),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
+                  )
+                      : Center(
+                    child: CircularProgressIndicator(),
+                  ))),
+        ),
       ),
     );
   }

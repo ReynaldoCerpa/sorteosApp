@@ -32,45 +32,47 @@ class _CompradorExistente extends State<CompradorExistente> {
     const lightGrey = Color(0xFFD2D2D2);
     const yellow = Color(0xFFF1D100);
     const lightyellow = Color(0xFFF1D100);
-    return ScreenUtilInit(
-      builder: () => MaterialApp(
-        home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            toolbarHeight: 60.h,
-            backgroundColor: Colors.amber,
-            title: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back_ios),
-              color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ScreenUtilInit(
+        builder: () => MaterialApp(
+          home: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              toolbarHeight: 60.h,
+              backgroundColor: Colors.amber,
+              title: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.arrow_back_ios),
+                color: Colors.black,
+              ),
+              actions: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Text(
+                      "Registro de venta de boleto",
+                      style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    ),
+                    SizedBox(width: 15.w),
+                  ],
+                )
+              ],
             ),
-            actions: [
-              Row(
+            body: SizedBox(
+              child: Column(
                 children: [
                   SizedBox(
-                    width: 10.w,
+                    height: 50.h,
                   ),
                   Text(
-                    "Registro de venta de boleto",
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                  SizedBox(width: 15.w),
-                ],
-              )
-            ],
-          ),
-          body: SizedBox(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50.h,
-                ),
-                Text(
                     "¿Comprador ya registrado?",
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -78,10 +80,10 @@ class _CompradorExistente extends State<CompradorExistente> {
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                 Row(
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -135,13 +137,15 @@ class _CompradorExistente extends State<CompradorExistente> {
                               fontWeight: FontWeight.w800, fontSize: 20.sp),
                         ),
                       ), ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+
   }
 
   void onPress(int id) {

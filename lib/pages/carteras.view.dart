@@ -42,120 +42,123 @@ class _Carteras extends State<Carteras> {
   Widget build(BuildContext context) {
     const lightGrey = Color(0xFFD2D2D2);
     const lighterGray = Color(0xFFD2D2D2);
-    return ScreenUtilInit(
-      builder: () => MaterialApp(
-        home: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              toolbarHeight: 60.h,
-              backgroundColor: Colors.amber,
-              title: Container(
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.arrow_back_ios),
-                  color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ScreenUtilInit(
+        builder: () => MaterialApp(
+          home: Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                toolbarHeight: 60.h,
+                backgroundColor: Colors.amber,
+                title: Container(
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back_ios),
+                    color: Colors.black,
+                  ),
                 ),
+                actions: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Container(
+                        width: 90.w,
+                        child: Image.asset("assets/main-logo.png"),
+                      ),
+                      SizedBox(
+                        width: 100.w,
+                      ),
+                      Text(
+                        "Carteras",
+                        style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                      SizedBox(width: 15.w),
+                    ],
+                  )
+                ],
               ),
-              actions: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Container(
-                      width: 90.w,
-                      child: Image.asset("assets/main-logo.png"),
-                    ),
-                    SizedBox(
-                      width: 100.w,
-                    ),
-                    Text(
-                      "Carteras",
-                      style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black),
-                    ),
-                    SizedBox(width: 15.w),
-                  ],
-                )
-              ],
-            ),
-            body: FutureBuilder(
-                future: _loadData(),
-                builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
-                    snapshot.hasData
-                        ? ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (BuildContext context, index) => Card(
-                              margin: const EdgeInsets.all(10),
-                              color: lightGrey,
-                              child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Boletos(
-                                              idColaborador: widget.id,
-                                              idCartera: snapshot.data![index]
-                                                      ['idCartera']
-                                                  .toString())),
-                                    );
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: Text(
-                                          'Cartera #' +
-                                              snapshot.data![index]['idCartera']
-                                                  .toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w800,
-                                              fontSize: 20.sp),
-                                        ),
-                                      ),
-                                      SizedBox(width: 160.w),
+              body: FutureBuilder(
+                  future: _loadData(),
+                  builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
+                  snapshot.hasData
+                      ? ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, index) => Card(
+                      margin: const EdgeInsets.all(10),
+                      color: lightGrey,
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Boletos(
+                                      idColaborador: widget.id,
+                                      idCartera: snapshot.data![index]
+                                      ['idCartera']
+                                          .toString())),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  'Cartera #' +
+                                      snapshot.data![index]['idCartera']
+                                          .toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 20.sp),
+                                ),
+                              ),
+                              SizedBox(width: 160.w),
 
-                                      Flexible(
-                                        child: Container(
-                                          child: Align(
-                                            alignment: Alignment
-                                                .centerRight,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                print(snapshot.data![index]
-                                                ['idCartera']);
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) => Boletos(
-                                                          idColaborador: widget.id,
-                                                          idCartera: snapshot
-                                                              .data![index]
-                                                          ['idCartera']
-                                                              .toString())),
-                                                );
-                                              },
-                                              icon: Icon(Icons.arrow_forward_ios),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                              Flexible(
+                                child: Container(
+                                  child: Align(
+                                    alignment: Alignment
+                                        .centerRight,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        print(snapshot.data![index]
+                                        ['idCartera']);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Boletos(
+                                                  idColaborador: widget.id,
+                                                  idCartera: snapshot
+                                                      .data![index]
+                                                  ['idCartera']
+                                                      .toString())),
+                                        );
+                                      },
+                                      icon: Icon(Icons.arrow_forward_ios),
+                                    ),
+                                  ),
+                                ),
+                              ),
 
-                                    ],
-                                  )),
-                            ),
-                          )
-                        : Center(
-                            child: CircularProgressIndicator(),
-                          ))),
+                            ],
+                          )),
+                    ),
+                  )
+                      : Center(
+                    child: CircularProgressIndicator(),
+                  ))),
+        ),
       ),
-    );
+    ); 
   }
 
   void onPress(int id) {

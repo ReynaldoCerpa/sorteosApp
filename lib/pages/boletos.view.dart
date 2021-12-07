@@ -61,253 +61,260 @@ class _Boletos extends State<Boletos> {
     const lightGrey = Color(0xFFD2D2D2);
     const yellow = Color(0xFFF1D100);
     const lightyellow = Color(0xFFF1D100);
-    return ScreenUtilInit(
-      builder: () => MaterialApp(
-        home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            toolbarHeight: 60.h,
-            backgroundColor: Colors.amber,
-            title: Row(
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ScreenUtilInit(
+        builder: () => MaterialApp(
+          home: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              toolbarHeight: 60.h,
+              backgroundColor: Colors.amber,
+              title: Container(
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back_ios),
+                  color: Colors.black,
+                ),
+              ),
+              actions: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Container(
+                      width: 90.w,
+                      child: Image.asset("assets/main-logo.png"),
+                    ),
+                    SizedBox(
+                      width: 100.w,
+                    ),
+                    Text(
+                      "Boletos",
+                      style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    ),
+                    SizedBox(width: 15.w),
+                  ],
+                )
+              ],
+            ),
+            body: SizedBox(
+              height: double.infinity,
+              child: Column(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.arrow_back_ios),
-                    color: Colors.black,
-                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       Container(
-                        width: 90.w,
-                        child: Image.asset("assets/main-logo.png"),
+                        margin: const EdgeInsets.only(
+                            left: 15, top: 10, right: 15, bottom: 10),
+                        height: 33.h,
+                        width: 100.w,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              globals.filtro = "0";
+                            });
+                          },
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.sp))),
+                            foregroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                            backgroundColor: MaterialStateProperty.all(yellow),
+                          ),
+                          child: Text(
+                            "Todos",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800, fontSize: 17.sp),
+                          ),
+                        ),
                       ),
-                      SizedBox(width: 80.w,),
-                      Text(
-                        "Boletos",
-                        style: TextStyle(
-                            fontSize: 17.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
+                      Container(
+                        margin: const EdgeInsets.only(
+                            left: 0, top: 10, right: 15, bottom: 10),
+                        height: 33.h,
+                        width: 100.w,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              globals.filtro = "1";
+                            });
+                          },
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.sp))),
+                            foregroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                            backgroundColor: MaterialStateProperty.all(yellow),
+                          ),
+                          child: Text(
+                            "Vendidos",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800, fontSize: 15.sp),
+                          ),
+                        ),
                       ),
-                      SizedBox(width: 15.w),
+                      Container(
+                        margin: const EdgeInsets.only(
+                            left: 0, top: 10, right: 15, bottom: 10),
+                        height: 33.h,
+                        width: 100.w,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              globals.filtro = "2";
+                            });
+                          },
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.sp))),
+                            foregroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                            backgroundColor: MaterialStateProperty.all(yellow),
+                          ),
+                          child: Text(
+                            "No Vendidos",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800, fontSize: 15.sp),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ]
-            ),
-          ),
-          body: SizedBox(
-            height: double.infinity,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                          left: 15, top: 10, right: 15, bottom: 10),
-                      height: 33.h,
-                      width: 100.w,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            globals.filtro = "0";
-                          });
-                        },
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.sp))),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.black),
-                          backgroundColor: MaterialStateProperty.all(yellow),
-                        ),
-                        child: Text(
-                          "Todos",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 17.sp),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                          left: 0, top: 10, right: 15, bottom: 10),
-                      height: 33.h,
-                      width: 100.w,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            globals.filtro = "1";
-                          });
-                        },
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.sp))),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.black),
-                          backgroundColor: MaterialStateProperty.all(yellow),
-                        ),
-                        child: Text(
-                          "Vendidos",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 17.sp),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                          left: 0, top: 10, right: 15, bottom: 10),
-                      height: 33.h,
-                      width: 100.w,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            globals.filtro = "2";
-                          });
-                        },
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.sp))),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.black),
-                          backgroundColor: MaterialStateProperty.all(yellow),
-                        ),
-                        child: Text(
-                          "No Vendidos",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 15.sp),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                    child: FutureBuilder(
-                        future: _loadData(globals.filtro),
-                        builder:
-                            (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
-                                snapshot.hasData
-                                    ? ListView.builder(
-                                        scrollDirection: Axis.vertical,
-                                        shrinkWrap: true,
-                                        itemCount: snapshot.data!.length,
-                                        itemBuilder:
-                                            (BuildContext context, index) =>
-                                                Card(
-                                          margin: const EdgeInsets.only(
-                                              left: 15,
-                                              top: 10,
-                                              right: 15,
-                                              bottom: 10),
-                                          color: lightGrey,
-                                          child: InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Boleto_especifico(
-                                                              numBoleto: snapshot
-                                                                  .data![index][
-                                                                      'numBoleto']
-                                                                  .toString(), idColaborador: widget.idColaborador.toString(), )),
-                                                );
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10.0),
-                                                      child: SizedBox(
-                                                        width: 150.w,
-                                                        child: Column(
-                                                          children: [
-                                                            Align(
-                                                              alignment: Alignment
-                                                                  .centerLeft,
-                                                              child: Text(
-                                                                'Boleto #' +
-                                                                    snapshot
-                                                                        .data![
-                                                                            index]
-                                                                            [
-                                                                            'numBoleto']
-                                                                        .toString(),
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        'Reboto',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w800,
-                                                                    fontSize:
-                                                                        20.sp),
-                                                              ),
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: 15.w,
-                                                                ),
-                                                                Flexible(
-                                                                  child:
-                                                                      SizedBox(
-                                                                    width:
-                                                                        700.w,
-                                                                    child: (snapshot.data![index]['nombre'].toString() ==
-                                                                            "null")
-                                                                        ? Text(
-                                                                            "No vendido")
-                                                                        : Text(
-                                                                            snapshot.data![index]['nombre'].toString(),
-                                                                            style:
-                                                                                TextStyle(fontWeight: FontWeight.w600, fontSize: 11.sp),
-                                                                          ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                  Flexible(
-                                                    child: Container(
-                                                      child: Align(
-                                                        alignment: Alignment
-                                                            .centerRight,
-                                                        child: IconButton(
-                                                          onPressed: () {
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (context) => Boleto_especifico(
-                                                                      numBoleto: snapshot
-                                                                          .data![
-                                                                              index]
-                                                                              [
-                                                                              'numBoleto']
-                                                                          .toString(), idColaborador: widget.idColaborador.toString(),)),
-                                                            );
-                                                          },
-                                                          icon: Icon(Icons
-                                                              .arrow_forward_ios),
-                                                        ),
+                  Expanded(
+                      child: FutureBuilder(
+                          future: _loadData(globals.filtro),
+                          builder:
+                              (BuildContext ctx, AsyncSnapshot<List> snapshot) =>
+                          snapshot.hasData
+                              ? ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder:
+                                (BuildContext context, index) =>
+                                Card(
+                                  margin: const EdgeInsets.only(
+                                      left: 15,
+                                      top: 10,
+                                      right: 15,
+                                      bottom: 10),
+                                  color: lightGrey,
+                                  child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Boleto_especifico(
+                                                    numBoleto: snapshot
+                                                        .data![index][
+                                                    'numBoleto']
+                                                        .toString(), idColaborador: widget.idColaborador.toString(), )),
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                              padding:
+                                              const EdgeInsets.all(
+                                                  10.0),
+                                              child: SizedBox(
+                                                width: 150.w,
+                                                child: Column(
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment
+                                                          .centerLeft,
+                                                      child: Text(
+                                                        'Boleto #' +
+                                                            snapshot
+                                                                .data![
+                                                            index]
+                                                            [
+                                                            'numBoleto']
+                                                                .toString(),
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                            'Reboto',
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w800,
+                                                            fontSize:
+                                                            20.sp),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                    Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 15.w,
+                                                        ),
+                                                        Flexible(
+                                                          child:
+                                                          SizedBox(
+                                                            width:
+                                                            700.w,
+                                                            child: (snapshot.data![index]['nombre'].toString() ==
+                                                                "null")
+                                                                ? Text(
+                                                                "No vendido")
+                                                                : Text(
+                                                              snapshot.data![index]['nombre'].toString(),
+                                                              style:
+                                                              TextStyle(fontWeight: FontWeight.w600, fontSize: 11.sp),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               )),
-                                        ),
-                                      )
-                                    : Center(
-                                        child: CircularProgressIndicator(),
-                                      )))
-              ],
+                                          Flexible(
+                                            child: Container(
+                                              child: Align(
+                                                alignment: Alignment
+                                                    .centerRight,
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) => Boleto_especifico(
+                                                            numBoleto: snapshot
+                                                                .data![
+                                                            index]
+                                                            [
+                                                            'numBoleto']
+                                                                .toString(), idColaborador: widget.idColaborador.toString(),)),
+                                                    );
+                                                  },
+                                                  icon: Icon(Icons
+                                                      .arrow_forward_ios),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                          )
+                              : Center(
+                            child: CircularProgressIndicator(),
+                          )))
+                ],
+              ),
             ),
           ),
         ),
