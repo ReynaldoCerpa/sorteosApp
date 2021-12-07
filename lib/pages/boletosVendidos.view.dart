@@ -31,7 +31,7 @@ class _BoletosVendidos extends State<BoletosVendidos> {
         'idColaborador': idColaboador,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('192.168.1.133:3000', '/boletosvendidos');
+      final uri = Uri.http('192.168.1.77:3000', '/boletosvendidos');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);

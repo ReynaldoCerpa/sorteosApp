@@ -199,7 +199,7 @@ class _RegisterComprador extends State<RegisterComprador> {
 }
 
 registerUser(String nombre, String apellido1, String apellido2, String calle, String numint, String numext, String colonia, String codigoPostal, String ciudad, String correo, String telefono, String numBoleto) async {
-  final url = Uri.parse("http://192.168.1.133:3000/registerComprador");
+  final url = Uri.parse("http://192.168.1.77:3000/registerComprador");
   bool response = false;
   final data = {
     "nombre": nombre,

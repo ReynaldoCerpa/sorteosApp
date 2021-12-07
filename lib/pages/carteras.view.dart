@@ -28,7 +28,7 @@ class _Carteras extends State<Carteras> {
         'idColaborador': idColaboador,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('192.168.1.133:3000', '/carteras');
+      final uri = Uri.http('192.168.1.77:3000', '/carteras');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
@@ -158,7 +158,7 @@ class _Carteras extends State<Carteras> {
                   ))),
         ),
       ),
-    ); 
+    );
   }
 
   void onPress(int id) {

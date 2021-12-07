@@ -41,7 +41,7 @@ class _Login extends State<Login> {
 
   Future<Album> createAlbum() async {
     final response = await http.post(
-      Uri.parse('https://192.168.1.133:3000/logininfo'),
+      Uri.parse('https://192.168.1.77:3000/logininfo'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -229,7 +229,7 @@ class _Login extends State<Login> {
 }
 
 sendLogin(String username, String password) async {
-  final url = Uri.parse("http://192.168.1.133:3000/login");
+  final url = Uri.parse("http://192.168.1.77:3000/login");
   final data = {"username": username, "password": password};
   final res = await post(url, body: data);
 
@@ -246,7 +246,7 @@ Future<List> _loadData(String usuario) async {
       'username': usuario,
     };
     final jsonString = json.encode(body);
-    final uri = Uri.http('192.168.1.133:3000', '/logininfo');
+    final uri = Uri.http('192.168.1.77:3000', '/logininfo');
     final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
     final response = await http.post(uri, headers: headers, body: jsonString);
     posts = jsonDecode(response.body);

@@ -197,7 +197,7 @@ class _RegisterColaborador extends State<RegisterColaborador> {
 }
 
 registerUser(String nombre, String apellido1, String apellido2, String calle, String numint, String numext, String colonia, String codigoPostal, String ciudad, String correo, String telefono, String nombreusuario, String contrasena) async {
-  final url = Uri.parse("http://192.168.1.133:3000/register");
+  final url = Uri.parse("http://192.168.1.77:3000/register");
   bool response = false;
   final data = {
     "nombre": nombre,

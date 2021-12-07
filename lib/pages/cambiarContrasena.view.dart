@@ -183,7 +183,7 @@ class _CambiarContrasena extends State<CambiarContrasena> {
 }
 
 registerUser(String nueva, String nueva2, String vieja, String idColaborador) async {
-  final url = Uri.parse("http://192.168.1.133:3000/cambiarContraColaborador");
+  final url = Uri.parse("http://192.168.1.77:3000/cambiarContraColaborador");
   bool response = false;
   final data = {
     "idColaborador":idColaborador,

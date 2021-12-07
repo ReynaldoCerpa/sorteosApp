@@ -180,7 +180,7 @@ class _RecuperarContrasena extends State<RecuperarContrasena> {
 }
 
 registerUser(String correo) async {
-  final url = Uri.parse("http://192.168.1.133:3000/recuperarContrasena");
+  final url = Uri.parse("http://192.168.1.77:3000/recuperarContrasena");
   bool response = false;
   final data = {
     "correo":correo,

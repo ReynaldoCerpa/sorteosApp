@@ -31,7 +31,7 @@ class _Abonar extends State<Abonar> {
         'numBoleto': numBoleto,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('192.168.1.133:3000', '/abonos');
+      final uri = Uri.http('192.168.1.77:3000', '/abonos');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
@@ -50,7 +50,7 @@ class _Abonar extends State<Abonar> {
         'numBoleto': numBoleto,
       };
       final jsonString = json.encode(body);
-      final uri = Uri.http('192.168.1.133:3000', '/totalabono');
+      final uri = Uri.http('192.168.1.77:3000', '/totalabono');
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       final response = await http.post(uri, headers: headers, body: jsonString);
       posts = jsonDecode(response.body);
@@ -461,7 +461,7 @@ Widget NombreText(BuildContext context, String text) {
 }
 
 registerUser(String idColaborador, String numBoleto, String cantidad) async {
-  final url = Uri.parse("http://192.168.1.133:3000/agregarAbono");
+  final url = Uri.parse("http://192.168.1.77:3000/agregarAbono");
   bool response = false;
   final data = {
     "idColaborador": idColaborador,
